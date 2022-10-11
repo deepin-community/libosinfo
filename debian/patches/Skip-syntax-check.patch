@@ -1,0 +1,19 @@
+From: =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>
+Date: Wed, 20 Jan 2021 19:26:49 +0100
+Subject: Skip syntax check
+
+---
+ build-aux/syntax-check | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/build-aux/syntax-check b/build-aux/syntax-check
+index 426daff..604657c 100755
+--- a/build-aux/syntax-check
++++ b/build-aux/syntax-check
+@@ -4,4 +4,5 @@ cd $MESON_SOURCE_ROOT/build-aux
+ 
+ MAKE=`which gmake`
+ test -z "$MAKE" && MAKE=make
+-$MAKE -f syntax-check.mk syntax-check
++#$MAKE -f syntax-check.mk syntax-check
++exit 0

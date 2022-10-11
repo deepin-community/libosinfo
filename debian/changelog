@@ -1,0 +1,329 @@
+libosinfo (1.8.0-1) unstable; urgency=medium
+
+  [ Guido Günther ]
+  * New upstream version 1.8.0
+  * Unbreak tests trying to check debian/
+
+  [Laurent Bigonville]
+  * d/control: Switch from pciutils and usbitils to pci.ids and usb.ids
+    Closes: #815418, #944502
+
+ -- Guido Günther <agx@sigxcpu.org>  Wed, 20 Jan 2021 19:33:58 +0100
+
+libosinfo (1.7.1-1) unstable; urgency=medium
+
+  * New upstream version 1.7.1
+    Closes: #953628
+  * [626293c] d/watch: Use xz compression
+  * [02d3ec9] d/rules: Adjust for meson
+  * [1466f23] d/copyright: Remove trailing white space
+  * [1f6a12c] Ignore files in debian/ in tests
+  * [c2dd066] Install vapi deps as well
+  * [a3885f1] Bump symbol verions
+  * [0918426] Add salsa-ci
+  * [d8b2521] Switch to meson
+
+ -- Guido Günther <agx@sigxcpu.org>  Sat, 14 Mar 2020 22:21:15 +0100
+
+libosinfo (1.6.0-1) unstable; urgency=medium
+
+  * New upstream version fixes CVE-2019-13313
+    (Closes: #931479)
+  * [b4df8dd] Drop all patches.  Applied upstream.
+  * [92ccbf9] Buil-dep on libsoup-2.4
+  * [1084c9f] Bump symbol versions
+  * [023849f] Adjust autopkgtest to osinfo entry.
+    The name in osinfo-db switched from "Debian Jessie" to "Debian 8"
+
+ -- Guido Günther <agx@sigxcpu.org>  Sun, 28 Jul 2019 18:57:56 +0200
+
+libosinfo (1.4.0-1) experimental; urgency=medium
+
+  [ Guido Günther ]
+  * New upstream versio 1.4.0
+    (Closes: #923789)
+  * d/gbp.conf: Switch to experimental
+  * Minimize existing signing key and add new one
+  * Unbreak arch parsing application id usage
+    - loader-Properly-load-the-arch-value-for-images.patch
+    - media-Fix-usage-of-application-id.patch
+    Thanks to Fabiano Fidêncio
+  * d/control: Bump osinfo-db build-dep.
+    We need a newer version for the tests
+  * Drop failing haiku test
+  * Update symbols file
+
+ -- Guido Günther <agx@sigxcpu.org>  Mon, 15 Apr 2019 16:39:07 +0200
+
+libosinfo (1.2.0-1) unstable; urgency=medium
+
+  * d/control: swith VCS-* URLs to salsa
+  * New upstream version (Closes: #908983)
+  * d/control: Drop build-dep libsoup-gnome-2.4.
+    Thanks to Jeremy Bicha
+  * d/control: Switch to priority optional
+  * d/copyright: Avoid duplicate license paragraph
+  * d/control: Bump standards version
+  * debian/copyright: Fix upstream URL.
+    Project moved to gitlab.
+    Thanks to Jeremy Bicha
+  * d/control: Move l10n package to localization section
+
+ -- Guido Günther <agx@sigxcpu.org>  Mon, 17 Sep 2018 10:00:52 +0200
+
+libosinfo (1.1.0-1) unstable; urgency=medium
+
+  * [349b18f] Upstream moved from fedorahosted to pagure
+  * [0dfd210] Use vcs-upstream-tag
+  * [4921ed0] libtool is sufficient no need for libtool-bin.
+    Thanks to Helmut Grohne (Closes: #871703)
+  * [c501be8] Drop loader-Fix-typo-in-error-message.patch: applied upstream
+  * [911d9a3] Bump sumbols
+  * [764448c] Bump standards version
+
+ -- Guido Günther <agx@sigxcpu.org>  Sat, 19 Aug 2017 23:01:01 +0200
+
+libosinfo (1.0.0-2) unstable; urgency=medium
+
+  * Upload to unstable
+  * [292a8ab] Fix Breaks/Replaces.
+    Thanks to Andreas Beckmann (Closes: #842060)
+  * [a979083] Re-enable test suite.  We have osinfo-db in the archive now. Add
+    necessary build-deps for that.
+  * [059a0b6] Turn on all hardening flags
+  * [1b3d04b] loader: Fix typo in error message
+  * [e5e2fb8] d/control: Improve description a bit
+
+ -- Guido Günther <agx@sigxcpu.org>  Sat, 05 Nov 2016 14:08:20 +0100
+
+libosinfo (1.0.0-1) experimental; urgency=medium
+
+  * [ec1ceb9] New upstream version 1.0.0
+  * [49b298c] Update README.source
+  * [aa221ba] Drop libosinfo-db package and use the now split out osinfo-db
+  * [de23113] Disable internal test suite until we have osinfo-db in the
+    archive
+
+ -- Guido Günther <agx@sigxcpu.org>  Thu, 20 Oct 2016 14:58:58 +0200
+
+libosinfo (0.3.1-5) unstable; urgency=medium
+
+  * [93359f7] Fix a typo in the replaces line.
+    Thanks to Andreas Beckmann (Closes: #829422)
+
+ -- Guido Günther <agx@sigxcpu.org>  Thu, 14 Jul 2016 19:36:19 +0200
+
+libosinfo (0.3.1-4) unstable; urgency=medium
+
+  [ Jeremy Bicha ]
+  * [a9141ff] Have build-test autopkgtest depend on build-essential
+  * [d762ae0] Have libosinfo-dev depend on libglib2.0-dev (Closes: #829639)
+  * [2457cbb] Point Vcs-Browser to cgit
+
+ -- Guido Günther <agx@sigxcpu.org>  Tue, 05 Jul 2016 10:22:44 +0200
+
+libosinfo (0.3.1-3) unstable; urgency=medium
+
+  * [070f0f7] Unbreak build on arch != amd64.
+    The hardcoded path is no good if we use dh_install --fail-missing
+    afterwards. (Closes: #829495)
+
+ -- Guido Günther <agx@sigxcpu.org>  Sun, 03 Jul 2016 23:52:26 +0200
+
+libosinfo (0.3.1-2) unstable; urgency=medium
+
+  [ Michael Biebl ]
+  * [e95a02d] Move Breaks/Replaces to libosinfo-db (Closes: #829423)
+
+  [ Guido Günther ]
+  * [5418a86] programs and tests are GPLv2 licensed
+  * [5ea9df4] Bump debhelper dependency to 9 to multiarch
+  * [1448876] Make libosinfo-db arch any
+
+ -- Guido Günther <agx@sigxcpu.org>  Sun, 03 Jul 2016 10:28:45 +0200
+
+libosinfo (0.3.1-1) unstable; urgency=medium
+
+  * [9abe446] New upstream version 0.3.1
+  * [871f311] watch: Add signature verifiation
+  * [1991a68] Switch back to tarballs
+
+ -- Guido Günther <agx@sigxcpu.org>  Fri, 01 Jul 2016 19:58:32 +0200
+
+libosinfo (0.3.0-3) unstable; urgency=medium
+
+  * [a9a31e7] Move database files into separate package and install
+    translations (Closes: #825009)
+  * [a3c4034] Fail if we don't install all files
+
+ -- Guido Günther <agx@sigxcpu.org>  Fri, 27 May 2016 16:13:43 +0200
+
+libosinfo (0.3.0-2) unstable; urgency=medium
+
+  [ Laurent Bigonville ]
+  * [19e7318] Bump debhelper compatibility to 9 and multiarchify the library
+    packages.  Thanks to Matthias Klose <doko@debian.org> (Closes: #812921)
+
+  [ Guido Günther ]
+  * [7940355] Drop unneeded Pre-Depends
+  * [ffd3171] Drop debug package
+  * [59e011a] Fix Vcs-Browser URL
+  * [cf6b1ca] Build and install API documentation
+  * [00acc87] Add autopkg build-test
+  * [8edbebd] Test invocation of osinfo-install-script as well
+
+ -- Guido Günther <agx@sigxcpu.org>  Wed, 25 May 2016 09:30:36 +0200
+
+libosinfo (0.3.0-1) unstable; urgency=medium
+
+  [ Guido Günther ]
+  * [48a0ce3] Drop udev rule handling since the rule is superflous and was
+    dropped upstream
+  * [6417d53] Add simple autopkg smoke test
+
+  [ Laurent Bigonville ]
+  * [6402871] debian/libosinfo-bin.install: Install the manpages
+  * [9f0c857] debian/rules: Use the gir sequence instead of overriding
+    dh_makeshlibs
+  * [fbdca7a] debian/control: Update the Homepage URL (Closes: #824988)
+  * [389324b] debian/rules: Drop --enable-udev flag, doesn't exist anymore
+  * [b8a5a7a] debian/control: Update the Vcs-* URL's to please lintian
+  * [c741c20] debian/control: Bump Standards-Version to 3.9.8 (no further
+    changes)
+
+ -- Guido Günther <agx@sigxcpu.org>  Mon, 23 May 2016 08:56:27 +0200
+
+libosinfo (0.2.12-2) unstable; urgency=medium
+
+  * Upload to unstable (Closes: #801684)
+
+ -- Guido Günther <agx@sigxcpu.org>  Wed, 14 Oct 2015 05:43:02 -0400
+
+libosinfo (0.2.12-1) experimental; urgency=medium
+
+  * New upstream version
+  * [f12b63f] Bump symbol versions
+
+ -- Guido Günther <agx@sigxcpu.org>  Thu, 13 Aug 2015 23:29:09 +0200
+
+libosinfo (0.2.11-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Build-depend on libtool-bin. Closes: #761767.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 09 Oct 2014 10:41:04 +0000
+
+libosinfo (0.2.11-1) unstable; urgency=medium
+
+  * New upstream version (Closes: #762987)
+  * [3c63e75] Bump symbol versions
+  * [c19118a] Bump standards version to 3.9.5
+  * [b79ec78] Add README.source
+  * [aa11c42] Use dpkg-buildflags to get the proper hardening flags
+
+ -- Guido Günther <agx@sigxcpu.org>  Sat, 27 Sep 2014 12:47:45 +0200
+
+libosinfo (0.2.9-1) unstable; urgency=medium
+
+  * New upstream version (Closes: #738861)
+  * [a37c81c] Update symbols
+
+ -- Guido Günther <agx@sigxcpu.org>  Sat, 15 Feb 2014 12:32:27 +0100
+
+libosinfo (0.2.8-1) unstable; urgency=low
+
+  * New upstream version (Closes: #724553)
+  * [35ef4ea] Update symbols
+  * [ef528e9] Depend on pciutils and usbutils
+    instead of hwdata now that the hwdata uses {pci,usb}utils data instead
+    of providing its own. (Closes: #721407)
+  * [a9ccd54] Name debian packaging branch debian/sid as proposed in the gbp
+    manual.
+
+ -- Guido Günther <agx@sigxcpu.org>  Wed, 16 Oct 2013 13:15:10 +0200
+
+libosinfo (0.2.7-1) unstable; urgency=low
+
+  * Upload to unstable
+  * [e3c2f67] Update symbols file
+  * [f73730d] Drop ln-destdir.patch applied upstream
+  * [f11a0a8] Use vala >= 0.20 (Closes: #709720)
+
+ -- Guido Günther <agx@sigxcpu.org>  Mon, 27 May 2013 17:46:05 +0200
+
+libosinfo (0.2.6-0.1) experimental; urgency=low
+
+  * Non-maintainer upload with maintainer approval.
+  * Imported Upstream version 0.2.6
+  * Drop patch for pci/usb-ids-path and use configure arguments instead
+  * Don't run ./autogen.sh before configure, not shipped anymore.
+  * Drop creation of pci.ids and usb.ids symlinks
+  * Add ln-destdir.patch to create *.ids symlinks in correct place
+  * Add dh-autoreconf to rebuild Makefiles after patching
+  * Update libosinfo-1.0-0.symbols
+  * Change valac-0.14 build-dependency to valac (Closes: #675658)
+
+ -- Andreas Henriksson <andreas@fatal.se>  Wed, 27 Mar 2013 10:49:15 +0100
+
+libosinfo (0.2.1-1) experimental; urgency=low
+
+  * New Upstream version 0.2.1 (Closes: #691117)
+  * [286339e] Update patches
+  * [d71540b] Add libxslt-dev dependency
+  * [158e678] Update symbols
+
+ -- Guido Günther <agx@sigxcpu.org>  Tue, 23 Oct 2012 13:44:41 +0200
+
+libosinfo (0.1.1-1) unstable; urgency=low
+
+  * New upstream version (Closes: #670846)
+  * [7c97cb9] Only invoke dh_auto_clean if a Makefile exists
+  * [79ac455] Require libsoup-gnome2.4-dev
+  * [31f8897] Require libxml2-utils for the tests
+  * [7c84d7e] Update patches
+  * [86ec570] Update symbols file
+  * [cc0d097] Bump standards version
+
+ -- Guido Günther <agx@sigxcpu.org>  Wed, 02 May 2012 08:33:52 +0200
+
+libosinfo (0.1.0-3) unstable; urgency=low
+
+  * Upload to unstable
+
+ -- Guido Günther <agx@sigxcpu.org>  Thu, 19 Apr 2012 12:30:16 +0200
+
+libosinfo (0.1.0-2) experimental; urgency=low
+
+  * [883b6ab] Add symbols file (Closes: #668433)
+
+ -- Guido Günther <agx@sigxcpu.org>  Thu, 12 Apr 2012 08:53:44 +0200
+
+libosinfo (0.1.0-1) experimental; urgency=low
+
+  [ Jeremy Bicha ]
+  * [7d2cd26] Use dots at the end of the short description
+
+  [ Guido Günther ]
+  * New upstream version (Closes: #663122)
+  * [18b4441] Add watch file
+
+ -- Guido Günther <agx@sigxcpu.org>  Thu, 08 Mar 2012 19:21:20 +0100
+
+libosinfo (0.0.5-1) experimental; urgency=low
+
+  * New upstream version 0.0.5
+
+ -- Guido Günther <agx@sigxcpu.org>  Sun, 22 Jan 2012 17:30:46 +0100
+
+libosinfo (0.0.4-2) experimental; urgency=low
+
+  * [62490ca] Make the dev package depend on the gir package.
+    Thanks to Jeremy Bicha
+
+ -- Guido Günther <agx@sigxcpu.org>  Sat, 14 Jan 2012 21:39:19 +0100
+
+libosinfo (0.0.4-1) experimental; urgency=low
+
+  * Initial release (Closes: #649780)
+
+ -- Guido Günther <agx@sigxcpu.org>  Wed, 11 Jan 2012 14:36:48 +0100
