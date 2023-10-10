@@ -19,12 +19,12 @@
  */
 
 #include <osinfo/osinfo.h>
-#include "osinfo_util_private.h"
 #include <gio/gio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <glib/gi18n-lib.h>
 #include <libsoup/soup.h>
+#include "osinfo_util_private.h"
 
 typedef struct _CreateFromLocationAsyncData CreateFromLocationAsyncData;
 struct _CreateFromLocationAsyncData {
@@ -463,9 +463,10 @@ OsinfoTree *osinfo_tree_new(const gchar *id,
                         "id", id,
                         NULL);
 
-    osinfo_entity_set_param(OSINFO_ENTITY(tree),
-                            OSINFO_TREE_PROP_ARCHITECTURE,
-                            architecture);
+    if (architecture)
+        osinfo_entity_set_param(OSINFO_ENTITY(tree),
+                                OSINFO_TREE_PROP_ARCHITECTURE,
+                                architecture);
 
     return tree;
 }
@@ -715,7 +716,7 @@ static void on_soup_location_read(GObject *source,
                                       res,
                                       &error);
     if (stream == NULL ||
-        !SOUP_STATUS_IS_SUCCESSFUL(data->message->status_code)) {
+        !SOUP_STATUS_IS_SUCCESSFUL(soup_message_get_status(data->message))) {
         /* It means no ".treeinfo" file has been found. Try again, this time
          * looking for a "treeinfo" file. */
         if (g_str_equal(data->treeinfo, ".treeinfo")) {
@@ -727,7 +728,7 @@ static void on_soup_location_read(GObject *source,
             g_set_error_literal(&error,
                                 OSINFO_TREE_ERROR,
                                 OSINFO_TREE_ERROR_NO_TREEINFO,
-                                soup_status_get_phrase(data->message->status_code));
+                                soup_status_get_phrase(soup_message_get_status(data->message)));
         }
         g_prefix_error(&error, _("Failed to load .treeinfo|treeinfo file: "));
         g_task_return_error(data->res, error);
@@ -735,7 +736,7 @@ static void on_soup_location_read(GObject *source,
         return;
     }
 
-    content_size = soup_message_headers_get_content_length(data->message->response_headers);
+    content_size = soup_message_headers_get_content_length(soup_message_get_response_headers(data->message));
     data->content = g_malloc0(content_size);
 
     g_input_stream_read_all_async(stream,
@@ -823,7 +824,7 @@ osinfo_tree_create_from_location_async_helper(CreateFromLocationAsyncData *data,
     if (requires_soup) {
         if (data->session == NULL)
             data->session = soup_session_new_with_options(
-                    SOUP_SESSION_USER_AGENT, "Wget/1.0",
+                    "user-agent", "Wget/1.0",
                     NULL);
 
         g_clear_object(&data->message);
@@ -831,6 +832,9 @@ osinfo_tree_create_from_location_async_helper(CreateFromLocationAsyncData *data,
 
         soup_session_send_async(data->session,
                                 data->message,
+#if SOUP_MAJOR_VERSION > 2
+                                G_PRIORITY_DEFAULT,
+#endif
                                 g_task_get_cancellable(data->res),
                                 on_soup_location_read,
                                 data);
@@ -1176,4 +1180,53 @@ OsinfoTree *osinfo_tree_create_from_treeinfo(const gchar *treeinfo,
     g_return_val_if_fail(location != NULL, NULL);
 
     return load_keyinfo(location, treeinfo, strlen(treeinfo), error);
+}
+
+#define match_regex(pattern, str)                                       \
+    (((pattern) == NULL) ||                                             \
+     (((str) != NULL) &&                                                \
+      g_regex_match_simple((pattern), (str), 0, 0)))
+
+/**
+ * osinfo_tree_matches:
+ * @tree: an unidentified #OsinfoTree instance
+ * @reference: a reference #OsinfoTree instance
+ *
+ * Determines whether the metadata for the unidentified @tree is a match
+ * for the @reference tree.
+ *
+ * The metadata in the unidentified @tree must be literal strings,
+ * while the metadata in the @reference tree must be regular expressions.
+ *
+ * Returns: #TRUE if @tree is a match for @reference. #FALSE otherwise
+ *
+ * Since: 1.10.0
+ */
+gboolean osinfo_tree_matches(OsinfoTree *tree, OsinfoTree *reference)
+{
+    const gchar *tree_arch = osinfo_tree_get_architecture(tree);
+    const gchar *tree_treeinfo_family = osinfo_tree_get_treeinfo_family(tree);
+    const gchar *tree_treeinfo_variant = osinfo_tree_get_treeinfo_variant(tree);
+    const gchar *tree_treeinfo_version = osinfo_tree_get_treeinfo_version(tree);
+    const gchar *tree_treeinfo_arch = osinfo_tree_get_treeinfo_arch(tree);
+
+    const gchar *reference_arch = osinfo_tree_get_architecture(reference);
+    const gchar *reference_treeinfo_family = osinfo_tree_get_treeinfo_family(reference);
+    const gchar *reference_treeinfo_variant = osinfo_tree_get_treeinfo_variant(reference);
+    const gchar *reference_treeinfo_version = osinfo_tree_get_treeinfo_version(reference);
+    const gchar *reference_treeinfo_arch = osinfo_tree_get_treeinfo_arch(reference);
+
+    if (!osinfo_tree_has_treeinfo(reference))
+        return FALSE;
+
+    if ((!tree_arch ||
+         g_str_equal(reference_arch, tree_arch) ||
+         g_str_equal(reference_arch, "all")) &&
+        match_regex(reference_treeinfo_family, tree_treeinfo_family) &&
+        match_regex(reference_treeinfo_variant, tree_treeinfo_variant) &&
+        match_regex(reference_treeinfo_version, tree_treeinfo_version) &&
+        match_regex(reference_treeinfo_arch, tree_treeinfo_arch))
+        return TRUE;
+
+    return FALSE;
 }

@@ -1,7 +1,7 @@
 Tests: smoke
 Depends: libosinfo-bin
-Restrictions: allow-stderr
+Restrictions: allow-stderr, superficial
 
 Tests: build-test.mk
 Depends: libosinfo-1.0-dev, build-essential
-Restrictions: allow-stderr
+Restrictions: superficial
