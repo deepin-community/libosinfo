@@ -20,12 +20,12 @@
 
 #include <osinfo/osinfo.h>
 #include "osinfo_media_private.h"
-#include "osinfo_util_private.h"
 #include <gio/gio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <glib/gi18n-lib.h>
 #include <libsoup/soup.h>
+#include "osinfo_util_private.h"
 
 #define MAX_VOLUME 32
 #define MAX_SYSTEM 32
@@ -705,9 +705,10 @@ OsinfoMedia *osinfo_media_new(const gchar *id,
                          "id", id,
                          NULL);
 
-    osinfo_entity_set_param(OSINFO_ENTITY(media),
-                            OSINFO_MEDIA_PROP_ARCHITECTURE,
-                            architecture);
+    if (architecture)
+        osinfo_entity_set_param(OSINFO_ENTITY(media),
+                                OSINFO_MEDIA_PROP_ARCHITECTURE,
+                                architecture);
 
     return media;
 }
@@ -1286,11 +1287,11 @@ static void on_location_read(GObject *source,
         stream = G_INPUT_STREAM(g_file_read_finish(G_FILE(source), res, &error));
     } else {
         stream = soup_session_send_finish(SOUP_SESSION(source), res, &error);
-        if (!SOUP_STATUS_IS_SUCCESSFUL(data->message->status_code) && error == NULL) {
+        if (!SOUP_STATUS_IS_SUCCESSFUL(soup_message_get_status(data->message)) && error == NULL) {
             g_set_error_literal(&error,
                                 OSINFO_MEDIA_ERROR,
                                 OSINFO_MEDIA_ERROR_NO_DESCRIPTORS,
-                                soup_status_get_phrase(data->message->status_code));
+                                soup_status_get_phrase(soup_message_get_status(data->message)));
         }
     }
     if (error != NULL) {
@@ -1387,12 +1388,15 @@ void osinfo_media_create_from_location_with_flags_async(const gchar *location,
 
     if (osinfo_util_requires_soup(location)) {
         data->session = soup_session_new_with_options(
-                SOUP_SESSION_USER_AGENT, "Wget/1.0",
+                "user-agent", "Wget/1.0",
                 NULL);
         data->message = soup_message_new("GET", location);
 
         soup_session_send_async(data->session,
                                 data->message,
+#if SOUP_MAJOR_VERSION > 2
+                                G_PRIORITY_DEFAULT,
+#endif
                                 cancellable,
                                 on_location_read,
                                 data);
@@ -1853,4 +1857,63 @@ gboolean osinfo_media_is_bootable(OsinfoMedia *media)
 
     return osinfo_entity_get_param_value_boolean(OSINFO_ENTITY(media),
                                                  OSINFO_MEDIA_PROP_BOOTABLE);
+}
+
+#define match_regex(pattern, str)                                       \
+    (((pattern) == NULL) ||                                             \
+     (((str) != NULL) &&                                                \
+      g_regex_match_simple((pattern), (str), 0, 0)))
+
+/**
+ * osinfo_media_matches:
+ * @media: an unidentified #OsinfoMedia instance
+ * @reference: a reference #OsinfoMedia instance
+ *
+ * Determines whether the metadata for the unidentified @media is a match
+ * for the @reference media.
+ *
+ * The metadata in the unidentified @media must be literal strings,
+ * while the metadata in the @reference media must be regular expressions.
+ *
+ * Returns: #TRUE if @media is a match for @reference. #FALSE otherwise
+ *
+ * Since: 1.10.0
+ */
+gboolean osinfo_media_matches(OsinfoMedia *media, OsinfoMedia *reference)
+{
+    const gchar *media_arch = osinfo_media_get_architecture(media);
+    const gchar *media_volume = osinfo_media_get_volume_id(media);
+    const gchar *media_system = osinfo_media_get_system_id(media);
+    const gchar *media_publisher = osinfo_media_get_publisher_id(media);
+    const gchar *media_application = osinfo_media_get_application_id(media);
+    gint64 media_vol_size = osinfo_media_get_volume_size(media);
+
+    const gchar *reference_arch = osinfo_media_get_architecture(reference);
+    const gchar *reference_volume = osinfo_media_get_volume_id(reference);
+    const gchar *reference_system = osinfo_media_get_system_id(reference);
+    const gchar *reference_publisher = osinfo_media_get_publisher_id(reference);
+    const gchar *reference_application = osinfo_media_get_application_id(reference);
+    gint64 reference_vol_size = osinfo_media_get_volume_size(reference);
+
+    if (reference_volume == NULL &&
+        reference_system == NULL &&
+        reference_publisher == NULL &&
+        reference_application == NULL &&
+        reference_vol_size <= 0)
+        return FALSE;
+
+    if (reference_vol_size <= 0)
+        reference_vol_size = media_vol_size;
+
+    if ((!media_arch ||
+         g_str_equal(reference_arch, media_arch) ||
+         g_str_equal(reference_arch, "all")) &&
+        match_regex(reference_volume, media_volume) &&
+        match_regex(reference_application, media_application) &&
+        match_regex(reference_system, media_system) &&
+        match_regex(reference_publisher, media_publisher) &&
+        reference_vol_size == media_vol_size)
+        return TRUE;
+
+    return FALSE;
 }

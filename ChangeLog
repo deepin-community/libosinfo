@@ -1,3 +1,958 @@
+2022-02-14  Victor Toso  <victortoso@redhat.com>
+
+	Update NEWS for 1.10.0 release
+
+2022-02-11  Laszlo Ersek  <lersek@redhat.com>
+
+	loader: work around lstat()/EACCES regression in _g_local_file_info_get()
+	In glib commit 71e7b5800a31 ("Handle MLS selinux policy better",
+	2010-07-08), which was made for
+	<https://bugzilla.gnome.org/show_bug.cgi?id=623692>, an lstat() failure
+	with error code EACCES was *masked* in function _g_local_file_info_get().
+
+	Consequently, if osinfo_loader_find_files() calls g_file_query_info() on a
+	file that is inaccessible due to (e.g.) a missing "x" (search) permission
+	on a leading directory, then g_file_query_info() succeeds, our
+	"skipMissing" branch is dead, g_file_info_get_attribute_uint32() is
+	reached, and it returns G_FILE_TYPE_UNKNOWN.
+
+	As a consequence, the outer osinfo_loader_process_default_path() function
+	can fail, even though it passes skipMissing=TRUE to
+	osinfo_loader_process_list(). Example:
+
+	> $ HOME=/root \
+	>   OSINFO_SYSTEM_DIR=/usr/share/osinfo \
+	>   build/tools/osinfo-query os
+	> Error loading OS data: Can't read path /root/.config/osinfo
+
+	Arguably, this situation should be handled by simply skipping the
+	inaccessible path, as if all leading directories could be searched, and
+	only the last pathname compontent (the filename entry) didn't exist in its
+	direct parent directory.
+
+	The glib regression was reported in 2017:
+
+	  https://bugzilla.gnome.org/show_bug.cgi?id=777187
+
+	and then migrated to gitlab:
+
+	  https://gitlab.gnome.org/GNOME/glib/-/issues/1237
+
+	but it's still not solved today.
+
+	Work around the issue by honoring "skipMissing" on the G_FILE_TYPE_UNKNOWN
+	branch. Demonstration:
+
+	> $ HOME=/root \
+	>   OSINFO_SYSTEM_DIR=/usr/share/osinfo \
+	>   build/tools/osinfo-query os
+	>
+	> ** (osinfo-query:9924): WARNING **: 13:23:12.776: Can't read path /root/.config/osinfo
+	>  Short ID       | Name             | Version | ID
+	> ----------------+------------------+---------+----------------------------------------
+	>  alpinelinux3.5 | Alpine Linux 3.5 | 3.5     | http://alpinelinux.org/alpinelinux/3.5
+	> ...
+
+	Bugzilla: https://bugzilla.redhat.com/show_bug.cgi?id=2051559
+
+2022-02-04  Daniel P. Berrangé  <berrange@redhat.com>
+
+	tools: add an --all flag to osinfo-detect to report all matches
+	By default it still only displays the first operating system with
+	matching media/tree, but if --all is given, all possible matches
+	will be displayed
+
+	osinfo: add API for resolving multiple tree matches
+	A provided tree object might match multiple entries from the
+	database. Add an API that allows for this possibility to let
+	applications decide how to handle it.
+
+	osinfo: add API for resolving multiple media matches
+	A provided media object might match multiple entries from the
+	database. Add an API that allows for this possibility to let
+	applications decide how to handle it.
+
+	osinfo: allow tree matching code to report multiple entries
+	Refactor the tree matching code so that it can be told to return all
+	matching entries, rather than only the first. The original behaviour
+	can be requested to short-circuit matching if the caller only requires
+	the first match.
+
+	osinfo: allow media matching code to report multiple entries
+	Refactor the media matching code so that it can be told to return all
+	matching entries, rather than only the first. The original behaviour
+	can be requested to short-circuit matching if the caller only requires
+	the first match.
+
+	osinfo: honour tree architecture when matching
+	The tree matching code currently ignores the tree architecture which
+	is generally ok, since osinfo_tree_create_from_location will leave it
+	set to NULL.
+
+	None the less, if an architecture is provided for the unknown tree,
+	we should only return results that match this architecture.
+
+	osinfo: honour media architecture when matching
+	The media matching code currently ignores the media architecture which
+	is generally ok, since osinfo_media_create_from_location will leave it
+	set to NULL.
+
+	None the less, if an architecture is provided for the unknown media,
+	we should only return results that match this architecture.
+
+	guests: use a OsinfoTreeList when detecting tree matches
+	In preparation for returning multiple tree matches, pass a
+	OsinfoTreeList object around.
+
+	osinfo: don't set the 'os' property on matched tree
+	We just got the OsinfoTee list from the OsinfoOs object, thus we know
+	that it already has the 'os' property set.
+
+	guests: use a OsinfoMediaList when detecting media matches
+	In preparation for returning multiple media matches, pass a
+	OsinfoMediaList object around.
+
+	osinfo: refactor tree guessing internal helper
+	We want the return value from the tree guessing helper to indicate
+	whether any matches were used, and have the OsinfoOs as an output
+	parameter which can now be optional.
+
+	osinfo: refactor media guessing internal helper
+	We want the return value from the media guessing helper to indicate
+	whether any matches were used, and have the OsinfoOs as an output
+	parameter which can now be optional.
+
+	osinfo: pull tree matching logic into public API
+	The logic for matching an unidentified tree against a reference tree
+	is potentially useful to applications and should be part of a public
+	API, rather than hidden.
+
+	osinfo: pull media matching logic into public API
+	The logic for matching an unidentified media against a reference media
+	is potentially useful to applications and should be part of a public
+	API, rather than hidden.
+
+	osinfo: add missing line break between methods
+
+2022-01-18  Ettore Atalan  <atalanttore@googlemail.com>
+
+	Translated using Weblate (German)
+	Currently translated at 81.8% (140 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/de/
+
+	Co-authored-by: Ettore Atalan <atalanttore@googlemail.com>
+
+2022-01-18  Jan Kuparinen  <copper_fin@hotmail.com>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 73.0% (125 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Jan Kuparinen <copper_fin@hotmail.com>
+
+2022-01-18  Daniel P. Berrangé  <berrange@redhat.com>
+
+	osinfo: use consistent include syntax for public headers
+
+	osinfo: switch to '#pragma once'
+	The current include files use the pattern
+
+	 #ifndef __OOSINFO_BLAH_H__
+	 # define __OOSINFO_BLAH_H__
+
+	 #endif /* __OOSINFO_BLAH_H__ */
+
+	Since we already mandated GCC + CLang, we can replace this with a
+	simpler incantation
+
+	 #pragma once
+
+	osinfo: fix bad preprocessor indentation
+
+2021-11-29  Victor Toso  <victortoso@redhat.com>
+
+	loader: add check for unknown file type
+	So we can provide a meaningful error message in case the provided path
+	is not accessible to running process.
+
+	e.g: running HOME=/root osinfo-query os we would get
+	  `Error loading OS data: Unexpected file type`
+	and now we get
+	  `Error loading OS data: Can't read path /root/.config/osinfo`
+
+	This error was first hit with v2v [0] that was leaking $USER and $HOME
+	of root user when osinfo-query as vsdm user with `sudo -c vdsm`. The
+	example above is a simple way to show lack of permision of
+	osinfo-query to read the root's $HOME.
+
+	[0] https://bugzilla.redhat.com/show_bug.cgi?id=1901423
+
+	Related: https://bugzilla.redhat.com/show_bug.cgi?id=1902720
+
+2021-11-24  Fabiano Fidêncio  <fabiano@fidencio.org>
+
+	os: Add `_get_complete_firmware_list()`
+	After realising the mistake of only returning **supported** firmwares on
+	`_get_firmware_list()`, let's work that limitation around by adding a
+	new function, `osinfo_os_get_complete_firmware_list()`, which returns
+	the complete list of firmwares, including both supported and unsupported
+	ones.
+
+	os: _get_firmware_list() returns supported FWs
+	Let's make sure we document that `_get_firmware_list()` returns **only**
+	supported firmwares, rather than returning **all** the firmwares
+	avaiable for an OS.
+
+	As part of the documentation change, let's also adapt the internal
+	functions to reflect that.
+
+	os: Add missing docs for _add_firmware()
+	osinfo_os_add_firmware() has been added as part of 1.7.0 release but,
+	somehow, its documentation has been missing.
+
+2021-11-12  Andrea Bolognani  <abologna@redhat.com>
+
+	ci: Add new targets
+	lcitool now supports CentOS Stream 9, Debian 11 and Fedora 35.
+
+	ci: Enable RPM jobs on CentOS
+	Now that we have a recent version of meson installed from
+	distro packages instead of PyPI, RPM builds will no longer
+	fail.
+
+	ci: Refresh generated files
+	Notable differences:
+
+	  * meson is now installed from the distro repositories
+	    instead of PyPI on CentOS 8 and CentOS Stream 8. We
+	    can finally do this because the version they ship
+	    has been updated.
+
+	  * intltool and itstool (which are used to build osinfo-db
+	    as part of the CI pipeline) are no longer included in the
+	    container images. osinfo-db-tools moved away from the
+	    former and never adopted the latter.
+
+	ci: Drop Fedora 33
+	It's going to be EOL in a matter of days, and lcitool already
+	dropped support for it.
+
+2021-10-10  Daniel P. Berrangé  <berrange@redhat.com>
+
+	Skip over entity reference checks if loading failed
+	If we fail to parse one of the XML files, we abort loading the
+	database. We then carry on to do an entity reference check which
+	will almost certainly fail due to not having loaded many XML
+	files. We need to skip over the entity reference check on failure
+	to avoid spamming the user with bogus errors.
+
+	Warn about unexpected files in the database
+	To help remind users that files must end in .xml, warn about any
+	unusually named files.
+
+	There are a couple of files we should not warn about since we expect
+	them to be present
+
+	 - VERSION
+	 - LICENSE
+
+	The entire 'schema' sub-directory should be ignored.
+	Common editor backups "~" and ".bak" should be ignored.
+
+	Fix hiding of database entries
+	The osinfo-db documentation says that a local admin/user can hide an
+	entity from the system location:
+
+	[quote]
+	If the file is zero-length or points to /dev/null, then this
+	represents a black-out override. This indicates that the
+	ENTITY-NAME.xml file from a lower priority directory MUST NOT
+	be loaded.
+	[/quote]
+
+	This does not, however, work at all. If a zero length file is given,
+	it tries to parse this as XML and fails, causing the entire DB loading
+	process to be aborted. This leaves the DB with dangling references.
+
+	If a symlink to /dev/null is given, it is entirely ignored because
+	the file is a block device and we only try to load regular files.
+	Instead of only loading regular files, we need to load any type of
+	file that has a .xml extension.
+
+	This appears to be broken since the very first impl of the new DB
+	loading process, despite having written the spec at the same time.
+
+2021-10-06  Felipe Borges  <felipeborges@gnome.org>
+
+	tree, media: Soup.Session.send_async now takes an IO priority argument
+	See https://libsoup.org/libsoup-3.0/SoupSession.html#soup-session-send-async
+
+	tree, media: SoupMessage is a private struct in libsoup3
+	You can no longer directly access various structs such as SoupMessage.
+	These are now accessed by getters and setters.
+
+	See https://libsoup.org/libsoup-3.0/ch02.html
+
+	tree, media: SOUP_SESSION_USER_AGENT isn't defined in libosup3
+	Let's use the literal "user-agent" instead.
+
+	build: Require libsoup3
+	See https://blog.tingping.se/2021/02/23/future-of-libsoup.html
+
+	This will fallback to libsoup-2.4 when libsoup3 isn't available.
+
+2021-09-27  Daniel P. Berrangé  <berrange@redhat.com>
+
+	build: don't set glib version constraints for g-ir-scanner
+	add_project_arguments() sets flags that apply to all invokations of the C
+	compiler toolchain by meson. On the surface it sounds fine to use this
+	for setting
+
+	  -DGLIB_VERSION_MIN_REQUIRED=VER
+	  -DGLIB_VERSION_MAX_ALLOWED=VER
+
+	as we want all our code to be constrained by these declared glib
+	versions to prevent us accidentally using APIS from newer glib by
+	mistake.
+
+	A subtle problem was revealed with the arrival of gobject-introspection
+	version 1.70.  The g-ir-scanner program auto-generates some glib code
+	for handling introspection, and this generated code uses glib APIs that
+	are newer than our declared version and this triggers compile failures
+
+	tmp-introspectg6xadxkr/Libosinfo-1.0.c:251:3: error: ‘G_TYPE_FLAG_FINAL’ is deprecated: Not available before 2.70 [-Werror=deprecated-declarations]
+	  251 |   if (G_TYPE_IS_FINAL (type))
+	      |   ^~
+	In file included from /usr/include/glib-2.0/gobject/gobject.h:24,
+	                 from /usr/include/glib-2.0/gobject/gbinding.h:29,
+	                 from /usr/include/glib-2.0/glib-object.h:22,
+	                 from tmp-introspectg6xadxkr/Libosinfo-1.0.c:30:
+	/usr/include/glib-2.0/gobject/gtype.h:1050:3: note: declared here
+	 1050 |   G_TYPE_FLAG_FINAL GLIB_AVAILABLE_ENUMERATOR_IN_2_70 = (1 << 6)
+	      |   ^~~~~~~~~~~~~~~~~
+	tmp-introspectg6xadxkr/Libosinfo-1.0.c:251:13: error: Not available before 2.70 [-Werror]
+	  251 |   if (G_TYPE_IS_FINAL (type))
+	      |             ^~~~~~~~~~~~~~~~~
+
+	This is actually harmless, because systems with an older glib will also
+	have older g-ir-scanner and thus not be using these new APIs.
+
+	We need to exclude the glib version constraints from code generated by
+	glib tools, and thus means we have to stop using add_project_arguments()
+	and set cflags explicitly on each target.
+
+2021-09-06  Rafael Fontenelle  <rafaelff@gnome.org>
+
+	Translated using Weblate (Portuguese (Brazil))
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/pt_BR/
+
+	Co-authored-by: Rafael Fontenelle <rafaelff@gnome.org>
+
+2021-09-06  Jan Kuparinen  <copper_fin@hotmail.com>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 65.4% (112 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Jan Kuparinen <copper_fin@hotmail.com>
+
+2021-09-03  Daniel P. Berrangé  <berrange@redhat.com>
+
+	ci: remove obsolete refresh script and documentation
+	We now use lcitool's manifest feature to generate files.
+
+	ci: re-generate containers/gitlab config from manifest
+	This uses the command "lcitool manifest ci/manifest.yml" to re-generate
+	all existing dockerfiles and gitlab CI config.
+
+	ci: define a CI manifest file
+	This is to be used with the command "lcitool manifest ci/manifest.yml"
+	to re-generate all existing dockerfiles and gitlab CI config.
+
+	In a slight change to the existing config, the manifest will always
+	use the pre-build osinfo-db-tools package. Nothing in the libosinfo
+	CI tasks, has a need to exercise latest git master for osinfo-db-tools.
+	The latter is covered fine by osinfo-db CI jobs.
+
+	gitlab: remove debian-9 build target
+	This platform is no longer supported by libvirt-ci.
+
+	gitlab: remove centos-7 build target
+	This platform is no longer supported by libvirt-ci.
+
+2021-08-25  Hela Basa  <r45xveza@pm.me>
+
+	Translated using Weblate (Sinhala)
+	Currently translated at 0.5% (1 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/si/
+
+	Co-authored-by: Hela Basa <r45xveza@pm.me>
+
+2021-08-25  Andika Triwidada  <andika@gmail.com>
+
+	Translated using Weblate (Indonesian)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/id/
+
+	Co-authored-by: Andika Triwidada <andika@gmail.com>
+
+2021-08-25  Jan Kuparinen  <copper_fin@hotmail.com>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 64.9% (111 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Translated using Weblate (Finnish)
+
+	Currently translated at 33.9% (58 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Jan Kuparinen <copper_fin@hotmail.com>
+
+2021-08-05  simmon  <simmon@nplob.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Co-authored-by: simmon <simmon@nplob.com>
+
+2021-08-05  Oğuz Ersen  <oguzersen@protonmail.com>
+
+	Translated using Weblate (Turkish)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/tr/
+
+	Co-authored-by: Oğuz Ersen <oguzersen@protonmail.com>
+
+2021-08-05  Yuri Chornoivan  <yurchor@ukr.net>
+
+	Translated using Weblate (Ukrainian)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/uk/
+
+	Co-authored-by: Yuri Chornoivan <yurchor@ukr.net>
+
+2021-08-05  Pino Toscano  <toscano.pino@tiscali.it>
+
+	Translated using Weblate (Italian)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/it/
+
+	Co-authored-by: Pino Toscano <toscano.pino@tiscali.it>
+
+2021-08-05  Piotr Drąg  <piotrdrag@gmail.com>
+
+	Translated using Weblate (Polish)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/pl/
+
+	Co-authored-by: Piotr Drąg <piotrdrag@gmail.com>
+
+2021-08-05  Weblate  <noreply@weblate.org>
+
+	Update translation files
+	Updated by "Update PO files to match POT (msgmerge)" hook in Weblate.
+
+	Co-authored-by: Weblate <noreply@weblate.org>
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/
+	Translation: libosinfo/libosinfo
+
+2021-08-05  Jan Kuparinen  <copper_fin@hotmail.com>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 32.3% (55 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Jan Kuparinen <copper_fin@hotmail.com>
+
+2021-08-04  Pino Toscano  <ptoscano@redhat.com>
+
+	po: regenerate libosinfo.pot
+
+2021-07-27  Daniel P. Berrangé  <berrange@redhat.com>
+
+	ci: refresh centos-stream container
+	It is no longer possible to just install an extra package to run regular
+	centos into centos stream.
+
+	gitlab: use custom docker:dind image
+	The current docker:dind container has broken default seccomp filter that
+	results in clone3 being blocked, which in turn breaks Fedora 35 rawhide.
+
+	This custom image has a workaround that causes the seccomp filter to
+	return ENOSYS for clone3 instad of EPERM, thus triggering glibc to
+	fallback to clone correctly.
+
+2021-07-22  Seong-ho Cho  <darkcircle.0426@gmail.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Co-authored-by: Seong-ho Cho <darkcircle.0426@gmail.com>
+
+2021-04-15  simmon  <simmon@nplob.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Co-authored-by: simmon <simmon@nplob.com>
+
+2021-04-13  simmon  <simmon@nplob.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Co-authored-by: simmon <simmon@nplob.com>
+
+2021-04-07  simmon  <simmon@nplob.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Co-authored-by: simmon <simmon@nplob.com>
+
+2021-04-05  simmon  <simmon@nplob.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Added translation using Weblate (Korean)
+
+	Co-authored-by: simmon <simmon@nplob.com>
+
+2021-03-07  Hela Basa  <r45xveza@pm.me>
+
+	Added translation using Weblate (Sinhala)
+	Co-authored-by: Hela Basa <r45xveza@pm.me>
+
+2021-03-07  Ricky Tigg  <ricky.tigg@gmail.com>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 25.2% (43 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Translated using Weblate (Finnish)
+
+	Currently translated at 23.5% (40 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Ricky Tigg <ricky.tigg@gmail.com>
+
+2021-03-07  Jan Kuparinen  <copper_fin@hotmail.com>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 19.4% (33 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Jan Kuparinen <copper_fin@hotmail.com>
+
+2021-03-07  Ricky Tigg  <ricky.tigg@gmail.com>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 18.8% (32 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Ricky Tigg <ricky.tigg@gmail.com>
+
+2021-02-24  Fabiano Fidêncio  <fidencio@redhat.com>
+
+	tools: Add "Release status" info to `osinfo-query os`
+	Release status has never been part of `osinfo-query os`, but it's been
+	proven to be a needed information, mainly because the rolling distro may
+	not even have their release & eol date filled up.
+
+	Related: https://bugzilla.redhat.com/show_bug.cgi?id=1932258
+
+2021-02-10  Fabiano Fidêncio  <fidencio@redhat.com>
+
+	Post release version bump to 1.10.0
+
+2021-02-02  Fabiano Fidêncio  <fidencio@redhat.com>
+
+	Update NEWS for 1.9.0 release
+
+2021-01-11  Jan Kuparinen  <copper_fin@hotmail.com>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 15.8% (27 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Jan Kuparinen <copper_fin@hotmail.com>
+
+2021-01-11  Weblate  <noreply@weblate.org>
+
+	Update translation files
+	Updated by "Update PO files to match POT (msgmerge)" hook in Weblate.
+
+	Co-authored-by: Weblate <noreply@weblate.org>
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/
+	Translation: libosinfo/libosinfo
+
+2021-01-08  Timm Bäder  <tbaeder@redhat.com>
+
+	install config: Rename a parameter
+	'timezone' is a global variable in time.h, so clang complains about
+	that.
+
+	build: Move bsd/mac checks to be compiler-specific
+	They depend on the compiler in use, not the operating system
+
+2020-12-15  Fabian Affolter  <mail@fabian-affolter.ch>
+
+	Translated using Weblate (German)
+	Currently translated at 64.7% (110 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/de/
+
+	Co-authored-by: Fabian Affolter <mail@fabian-affolter.ch>
+
+2020-12-15  Daniel P. Berrangé  <berrange@redhat.com>
+
+	ci: refresh containers for CentOS-8 PowerTools repo rename
+	A recent CentOS-8 update renamed the "PowerTools" repo to "powertools"
+	and since dnf is case sensitive wrt repo names, this broke ability to
+	build new containers.
+
+	The refresh fixes the repo name and pulls in other misc improvements
+	to containers.
+
+2020-12-01  Daniel P. Berrangé  <berrange@redhat.com>
+
+	gitlab: update refresh script for changed host naming convention
+
+	gitlab: refresh containers with lcitool for fully minimized base
+
+	gitlab: re-generate container images from lcitool
+	This introduces Fedora 33 and removes some redundant packages.
+
+	Note that rpm build is marked as skip on CentOS 8/Stream now, since
+	we're using pip provide meson instead of distro meson, and thus don't
+	have the %meson macro.
+
+2020-11-13  Cole Robinson  <crobinso@redhat.com>
+
+	loader: Print filename in libxml error string
+	This is how libvirt handles it. Would help debugging apparently
+	random failures like these bugs:
+
+	https://bugzilla.redhat.com/show_bug.cgi?id=1897356
+	https://bugzilla.redhat.com/show_bug.cgi?id=1651550
+
+2020-09-15  Milo Casagrande  <milo@milo.name>
+
+	Translated using Weblate (Italian)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/it/
+
+	Co-authored-by: Milo Casagrande <milo@milo.name>
+
+2020-09-14  Milo Casagrande  <milo@milo.name>
+
+	Translated using Weblate (Italian)
+	Currently translated at 97.0% (165 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/it/
+
+	Co-authored-by: Milo Casagrande <milo@milo.name>
+
+2020-09-14  Pino Toscano  <toscano.pino@tiscali.it>
+
+	Translated using Weblate (Italian)
+	Currently translated at 97.0% (165 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/it/
+
+	Co-authored-by: Pino Toscano <toscano.pino@tiscali.it>
+
+2020-09-14  Fabio Tomat  <f.t.public@gmail.com>
+
+	Translated using Weblate (Friulian)
+	Currently translated at 66.4% (113 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fur/
+
+	Translated using Weblate (Spanish)
+
+	Currently translated at 12.9% (22 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/es/
+
+	Added translation using Weblate (Friulian)
+
+	Co-authored-by: Fabio Tomat <f.t.public@gmail.com>
+
+2020-09-14  Alexey Shabalin  <a.shabalin@gmail.com>
+
+	Added translation using Weblate (Russian)
+	Co-authored-by: Alexey Shabalin <a.shabalin@gmail.com>
+
+2020-09-14  Mikel Olasagasti  <mikel@olasagasti.info>
+
+	Added translation using Weblate (Basque)
+	Co-authored-by: Mikel Olasagasti <mikel@olasagasti.info>
+
+2020-08-15  Emilio Herrera  <ehespinosa57@gmail.com>
+
+	Translated using Weblate (Spanish)
+	Currently translated at 12.9% (22 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/es/
+
+2020-08-08  Rafael Fontenelle  <rafaelff@gnome.org>
+
+	Translated using Weblate (Portuguese (Brazil))
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/pt_BR/
+
+2020-08-08  Kukuh Syafaat  <kukuh@syafaat.id>
+
+	Translated using Weblate (Indonesian)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/id/
+
+2020-07-31  Julien Humbert  <julroy67@gmail.com>
+
+	Translated using Weblate (French)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fr/
+
+2020-07-29  Oğuz Ersen  <oguzersen@protonmail.com>
+
+	Translated using Weblate (Turkish)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/tr/
+
+2020-07-29  Yuri Chornoivan  <yurchor@ukr.net>
+
+	Translated using Weblate (Ukrainian)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/uk/
+
+2020-07-28  Piotr Drąg  <piotrdrag@gmail.com>
+
+	Translated using Weblate (Polish)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/pl/
+
+2020-07-28  Weblate  <noreply@weblate.org>
+
+	Update translation files
+	Updated by "Update PO files to match POT (msgmerge)" hook in Weblate.
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/
+
+2020-07-28  Pino Toscano  <ptoscano@redhat.com>
+
+	po: regenerate libosinfo.pot
+
+2020-07-28  Rafael Fontenelle  <rafaelff@gnome.org>
+
+	Fix misspellings
+
+2020-07-28  Pino Toscano  <ptoscano@redhat.com>
+
+	tools,detect: improve command line option help
+	Literal identifiers, such as 'media', 'tree', etc in translatable
+	strings are a bad idea, since they will likely be translated, misguiding
+	users reading the help of a translated version.
+
+	Refactor a bit the way these bits are show to the user:
+	- in the help of --format and --type, show a generic name of the
+	  argument value, and slightly improve the description text
+	- add a small description text after the listing of the command line
+	  options to mention the allowed values
+
+	Fixes: #42
+
+2020-07-28  Weblate  <noreply@weblate.org>
+
+	Update translation files
+	Updated by "Update PO files to match POT (msgmerge)" hook in Weblate.
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/
+
+2020-07-28  Rafael Fontenelle  <rafaelff@gnome.org>
+
+	Translated using Weblate (Portuguese (Brazil))
+	Currently translated at 100.0% (169 of 169 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/pt_BR/
+
+
+	Translated using Weblate (Portuguese (Brazil))
+
+	Currently translated at 97.6% (165 of 169 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/pt_BR/
+
+2020-07-28  Fabiano Fidêncio  <fidencio@redhat.com>
+
+	spec: Explicitly call %meson_build in the %build section
+	It was never needed before as the %meson_install macro would perform a
+	project rebuild. However, most recent versions of meson have changed the
+	%meson_install macro to use `--no-rebuild`, exposing then this issue on
+	our spec file.
+
+	Fixes: #43
+
+2020-06-22  Julien Humbert  <julroy67@gmail.com>
+
+	Translated using Weblate (French)
+	Currently translated at 100.0% (169 of 169 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fr/
+
+2020-06-17  Andrea Bolognani  <abologna@redhat.com>
+
+	ci: Don't use RPM=skip for container builds
+	It only makes sense for actual build jobs.
+
+	ci: Check for rpmbuild availability
+	Only try to build RPMs if the rpmbuild command is present on the
+	system. This means we no longer have to use the RPM=skip trick on
+	Debian-based targets, and can limit it to cases where building
+	RPMs is actually broken for some reason.
+
+	ci: Simplify rpmbuild command
+	We don't have to worry about cleaning up after ourselves, since
+	we're running the build inside an ephemeral container.
+
+	ci: Add CentOS Stream
+	Starting with
+
+	  commit d35a7dba9cc8ac3bb0647171628731c625d4e14f
+	  Author: Erik Skultety <eskultet@redhat.com>
+	  Date:   Thu Jun 4 16:17:36 2020 +0200
+
+	    guests: Add CentOS Stream
+
+	    The idea behind Stream is to get a preview of what the next RHEL-minor
+	    will look like, thus getting newer versions of packages than regular
+	    CentOS provides. It's supposed to be rolling, so currently it's based on
+	    CentOS 8, but once RHEL-9 is out, it will point to the next RHEL-9
+	    instead.  However, unlike debian-sid it doesn't have a dedicated URL
+	    resource (something like centos-stream), so we'll have to change it
+	    manually once it's flipped to point to next RHEL-9.
+
+	    Signed-off-by: Erik Skultety <eskultet@redhat.com>
+
+	lcitool supports CentOS Stream as a build target.
+
+	ci: Use $MESON_OPTS
+	This information is part of the container image now.
+
+	ci: Refresh Dockerfiles
+	Starting with
+
+	  commit 25c9da0aaa94fbca674dca6dec65f6348f335e7d
+	  Author: Andrea Bolognani <abologna@redhat.com>
+	  Date:   Fri May 22 17:38:10 2020 +0200
+
+	    lcitool: Generate MESON_OPTS in Dockerfiles
+
+	    This serves the same purpose as CONFIGURE_OPTS: enable seamless
+	    cross-compilation support, in this case for Meson-based projects.
+
+	    Only MinGW cross-compilation targets are currently supported.
+
+	    Signed-off-by: Andrea Bolognani <abologna@redhat.com>
+
+	lcitool will include a $MESON_OPTS environment variable, which can
+	be used to simplify our GitLab CI build rules, in the Dockerfiles
+	it generates.
+
+	ci: Move Dockerfiles to a subdir
+	This is consistent to how libvirt organizes its files, and ensures
+	things will remain tidy even as we introduce new features such as,
+	later on, Cirrus CI support.
+
+	ci: Clean up refresh script a bit
+	Remove some repetition through refactoring.
+
+2020-06-02  Fabiano Fidêncio  <fidencio@redhat.com>
+
+	Post release version bump to 1.9.0
+
 2020-05-29  Fabiano Fidêncio  <fidencio@redhat.com>
 
 	Update NEWS for 1.8.0 release

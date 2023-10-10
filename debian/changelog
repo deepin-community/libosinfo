@@ -1,3 +1,32 @@
+libosinfo (1.10.0-2) unstable; urgency=medium
+
+  * [0d5f097] Mark autopkgtests as superficial
+  * [cc1bda6] Cherry-pick patch to allow building against libsoup3
+  * [ce57ef8] Build against libsoup3
+  * [0bcba33] Add versioned Breaks against gnome-boxes
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Tue, 02 Aug 2022 15:57:21 -0400
+
+libosinfo (1.10.0-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ Jeremy Bicha ]
+  * New upstream release (Closes: #971827)
+  * [2660342] debian/upstream/signing-key.asc: Update
+  * [7cbd745] Set Maintainer to libvirt team
+  * [b95be2b] Build-Depend on debhelper-compat 13
+  * [fd7dde5] Set Standards-Version to 4.6.0
+  * [1c5fc10] libosinfo-1.0-0: Depend on libosinfo-l10n (Closes: #843506)
+  * Miscellaneous packaging cleanup
+
+  [ Debian Janitor ]
+  * [2b9a3d2] Use versioned copyright format URI
+  * [a09b634] Re-export upstream signing key without extra signatures
+  * [5330941] Set upstream metadata fields
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Fri, 15 Apr 2022 14:16:17 -0400
+
 libosinfo (1.8.0-1) unstable; urgency=medium
 
   [ Guido Günther ]
