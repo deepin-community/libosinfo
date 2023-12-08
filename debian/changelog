@@ -1,3 +1,55 @@
+libosinfo (1.11.0-1) unstable; urgency=medium
+
+  [ Pino Toscano ]
+  * d/gbp.conf: drop vcs-upstream-tag
+  * New upstream version 1.11.0
+  * Add myself to Uploaders
+  * d/gbp.conf: drop git commit names from changelog
+  * Update the patches:
+    - Skip-syntax-check.patch: add DEP-3 headers
+    - build-Add-option-to-select-libsoup-ABI.patch: drop, backported
+      from upstream
+  * Re-export upstream signing key without extra signatures.
+  * Set upstream metadata fields: Bug-Database, Bug-Submit.
+  * Update standards version to 4.6.2, no changes needed.
+  * d/watch: bump to v4, no changes required
+  * Explicitly add the gettext build dependency
+  * d/rules: drop custom build flags, rely on the default (which work fine)
+
+  [ Debian Janitor ]
+  * Apply multi-arch hints. + libosinfo-l10n: Add Multi-Arch: foreign.
+
+ -- Pino Toscano <pino@debian.org>  Sat, 28 Oct 2023 23:13:43 +0200
+
+libosinfo (1.10.0-2) unstable; urgency=medium
+
+  * [0d5f097] Mark autopkgtests as superficial
+  * [cc1bda6] Cherry-pick patch to allow building against libsoup3
+  * [ce57ef8] Build against libsoup3
+  * [0bcba33] Add versioned Breaks against gnome-boxes
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Tue, 02 Aug 2022 15:57:21 -0400
+
+libosinfo (1.10.0-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ Jeremy Bicha ]
+  * New upstream release (Closes: #971827)
+  * [2660342] debian/upstream/signing-key.asc: Update
+  * [7cbd745] Set Maintainer to libvirt team
+  * [b95be2b] Build-Depend on debhelper-compat 13
+  * [fd7dde5] Set Standards-Version to 4.6.0
+  * [1c5fc10] libosinfo-1.0-0: Depend on libosinfo-l10n (Closes: #843506)
+  * Miscellaneous packaging cleanup
+
+  [ Debian Janitor ]
+  * [2b9a3d2] Use versioned copyright format URI
+  * [a09b634] Re-export upstream signing key without extra signatures
+  * [5330941] Set upstream metadata fields
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Fri, 15 Apr 2022 14:16:17 -0400
+
 libosinfo (1.8.0-1) unstable; urgency=medium
 
   [ Guido Günther ]

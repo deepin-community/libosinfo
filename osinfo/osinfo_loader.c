@@ -213,8 +213,10 @@ osinfo_loader_nodeset(const char *xpath,
 
     comp = osinfo_loader_get_comp_xpath(loader, xpath);
 
-    if (list != NULL)
+    if (list != NULL) {
+        g_warn_if_fail(*list == NULL);
         *list = NULL;
+    }
 
     relnode = ctxt->node;
     obj = xmlXPathCompiledEval(comp, ctxt);
@@ -280,7 +282,7 @@ osinfo_loader_boolean(const char *xpath,
                       GError **err)
 {
 
-    xmlNodePtr *nodes;
+    xmlNodePtr *nodes = NULL;
     int count;
     int i;
     gboolean ret = FALSE;
@@ -1068,8 +1070,8 @@ static void osinfo_loader_install_script(OsinfoLoader *loader,
         osinfo_install_script_set_avatar_format(installScript, avatar_format);
         g_object_unref(avatar_format);
     }
-    g_free(nodes);
 
+    g_clear_pointer(&nodes, g_free);
     nnodes = osinfo_loader_nodeset("./injection-method", loader, ctxt, &nodes,
                                    err);
     if (error_is_set(err))
@@ -1176,8 +1178,8 @@ static OsinfoMedia *osinfo_loader_media(OsinfoLoader *loader,
                                 variant_id);
         xmlFree(variant_id);
     }
-    g_free(nodes);
 
+    g_clear_pointer(&nodes, g_free);
     nnodes = osinfo_loader_nodeset("./iso/*", loader, ctxt, &nodes, err);
     if (error_is_set(err)) {
         g_object_unref(media);
@@ -1228,8 +1230,7 @@ static OsinfoMedia *osinfo_loader_media(OsinfoLoader *loader,
         }
     }
 
-    g_free(nodes);
-
+    g_clear_pointer(&nodes, g_free);
     nnodes = osinfo_loader_nodeset("./installer/script", loader, ctxt, &nodes,
                                    err);
     if (error_is_set(err)) {
@@ -1294,10 +1295,10 @@ static OsinfoTree *osinfo_loader_tree(OsinfoLoader *loader,
                                 variant_id);
         xmlFree(variant_id);
     }
-    g_free(nodes);
 
     osinfo_loader_entity(loader, OSINFO_ENTITY(tree), keys, ctxt, root, err);
 
+    g_clear_pointer(&nodes, g_free);
     nnodes = osinfo_loader_nodeset("./treeinfo/*", loader, ctxt, &nodes, err);
     if (error_is_set(err)) {
         g_object_unref(G_OBJECT(tree));
@@ -1679,6 +1680,7 @@ static void osinfo_loader_os(OsinfoLoader *loader,
         g_object_unref(firmware);
     }
 
+    g_clear_pointer(&nodes, g_free);
     nnodes = osinfo_loader_nodeset("./media", loader, ctxt, &nodes, err);
     if (error_is_set(err))
         goto cleanup;
@@ -1700,8 +1702,7 @@ static void osinfo_loader_os(OsinfoLoader *loader,
         g_object_unref(media);
     }
 
-    g_free(nodes);
-
+    g_clear_pointer(&nodes, g_free);
     nnodes = osinfo_loader_nodeset("./tree", loader, ctxt, &nodes, err);
     if (error_is_set(err))
         goto cleanup;
@@ -1723,8 +1724,7 @@ static void osinfo_loader_os(OsinfoLoader *loader,
         g_object_unref(G_OBJECT(tree));
     }
 
-    g_free(nodes);
-
+    g_clear_pointer(&nodes, g_free);
     nnodes = osinfo_loader_nodeset("./image", loader, ctxt, &nodes, err);
     if (error_is_set(err))
         goto cleanup;
@@ -1746,8 +1746,7 @@ static void osinfo_loader_os(OsinfoLoader *loader,
         g_object_unref(G_OBJECT(image));
     }
 
-    g_free(nodes);
-
+    g_clear_pointer(&nodes, g_free);
     nnodes = osinfo_loader_nodeset("./variant", loader, ctxt, &nodes, err);
     if (error_is_set(err))
         goto cleanup;
@@ -1768,8 +1767,7 @@ static void osinfo_loader_os(OsinfoLoader *loader,
         g_object_unref(G_OBJECT(variant));
     }
 
-    g_free(nodes);
-
+    g_clear_pointer(&nodes, g_free);
     nnodes = osinfo_loader_nodeset("./resources", loader, ctxt, &nodes, err);
     if (error_is_set(err))
         goto cleanup;
@@ -1790,9 +1788,7 @@ static void osinfo_loader_os(OsinfoLoader *loader,
         ctxt->node = saved;
     }
 
-    g_free(nodes);
-
-
+    g_clear_pointer(&nodes, g_free);
     nnodes = osinfo_loader_nodeset("./installer/script", loader, ctxt, &nodes,
                                    err);
     if (error_is_set(err))
@@ -1811,8 +1807,7 @@ static void osinfo_loader_os(OsinfoLoader *loader,
         osinfo_os_add_install_script(os, script);
     }
 
-    g_free(nodes);
-
+    g_clear_pointer(&nodes, g_free);
     nnodes = osinfo_loader_nodeset("./driver", loader, ctxt, &nodes, err);
     if (error_is_set(err))
         goto cleanup;
@@ -1914,9 +1909,17 @@ catchXMLError(void *ctx, const char *msg ATTRIBUTE_UNUSED, ...)
     if (ctxt && ctxt->_private) {
         GError **err = ctxt->_private;
         if (!error_is_set(err)) {
-            gchar *xmlmsg = g_strdup_printf("at line %d: %s",
-                                            ctxt->lastError.line,
-                                            ctxt->lastError.message);
+            gchar *xmlmsg;
+            if (ctxt->lastError.file) {
+                xmlmsg = g_strdup_printf("%s:%d: %s",
+                                         ctxt->lastError.file,
+                                         ctxt->lastError.line,
+                                         ctxt->lastError.message);
+            } else {
+                xmlmsg = g_strdup_printf("at line %d: %s",
+                                         ctxt->lastError.line,
+                                         ctxt->lastError.message);
+            }
             OSINFO_LOADER_SET_ERROR(ctxt->_private, xmlmsg);
             g_free(xmlmsg);
         }
@@ -2168,6 +2171,8 @@ osinfo_loader_process_file_reg_xml(OsinfoLoader *loader,
     if (error_is_set(err))
         return;
 
+    if (xmlLen == 0)
+        return;
     if (base) {
         relpath = g_file_get_relative_path(base, file);
         if (relpath == NULL) {
@@ -2338,11 +2343,19 @@ static void osinfo_loader_find_files(OsinfoLoader *loader,
             ent = g_file_get_child(file, name);
             type = g_file_info_get_attribute_uint32(info,
                                                     G_FILE_ATTRIBUTE_STANDARD_TYPE);
-            if (type == G_FILE_TYPE_REGULAR) {
-                if (g_str_has_suffix(name, ".xml"))
+            if (type == G_FILE_TYPE_DIRECTORY) {
+                if (!g_str_equal(name, "schema"))
+                    osinfo_loader_find_files(loader, base, ent, entries, FALSE, &error);
+            } else {
+                if (g_str_has_suffix(name, ".xml")) {
                     osinfo_loader_entity_files_add_path(entries, base, ent);
-            } else if (type == G_FILE_TYPE_DIRECTORY) {
-                osinfo_loader_find_files(loader, base, ent, entries, FALSE, &error);
+                } else if (!g_str_equal(name, "LICENSE") &&
+                           !g_str_equal(name, "VERSION") &&
+                           !g_str_has_suffix(name, "~") &&
+                           !g_str_has_suffix(name, ".bak")) {
+                    g_autofree gchar *path = g_file_get_path(ent);
+                    g_printerr("Ignoring %s with missing '.xml' extension\n", path);
+                }
             }
             g_object_unref(ent);
             g_object_unref(info);
@@ -2356,6 +2369,26 @@ static void osinfo_loader_find_files(OsinfoLoader *loader,
         }
         g_object_unref(ents);
         g_list_free(children);
+    } else if (type == G_FILE_TYPE_UNKNOWN) {
+        g_autofree gchar *path = g_file_get_path(file);
+        g_autofree gchar *msg = g_strdup_printf("Can't read path %s", path);
+        if (skipMissing) {
+            /* This is a work-around for
+             * <https://gitlab.gnome.org/GNOME/glib/-/issues/1237>. If the
+             * lstat() call underlying our g_file_query_info() call at the top
+             * of this function fails for "path" with EACCES, then
+             * g_file_query_info() should fail, and the "skipMissing" branch up
+             * there should suppress the error and return cleanly.
+             * Unfortunately, _g_local_file_info_get() masks the lstat()
+             * failure, g_file_info_get_attribute_uint32() is reached above,
+             * and returns G_FILE_TYPE_UNKNOWN for the file that could never be
+             * accessed. So we need to consider "skipMissing" here too.
+             */
+            g_warning("%s", msg);
+            return;
+        }
+        OSINFO_LOADER_SET_ERROR(&error, msg);
+        g_propagate_error(err, error);
     } else {
         OSINFO_LOADER_SET_ERROR(&error, "Unexpected file type");
         g_propagate_error(err, error);
@@ -2486,7 +2519,7 @@ static void osinfo_loader_process_list(OsinfoLoader *loader,
                                                files->master, &lerr);
             if (lerr) {
                 g_propagate_error(err, lerr);
-                break;
+                goto cleanup;
             }
         }
 
@@ -2499,7 +2532,7 @@ static void osinfo_loader_process_list(OsinfoLoader *loader,
                                                &lerr);
             if (lerr) {
                 g_propagate_error(err, lerr);
-                break;
+                goto cleanup;
             }
 
             tmpl = tmpl->next;

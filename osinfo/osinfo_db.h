@@ -18,6 +18,8 @@
  * <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #include <glib-object.h>
 #include <gio/gio.h>
 #include <osinfo/osinfo_platform.h>
@@ -27,12 +29,9 @@
 #include <osinfo/osinfo_oslist.h>
 #include <osinfo/osinfo_devicelist.h>
 
-#ifndef __OSINFO_DB_H__
-# define __OSINFO_DB_H__
+#include <osinfo/osinfo_macros.h>
 
-# include "osinfo/osinfo_macros.h"
-
-# define OSINFO_TYPE_DB (osinfo_db_get_type ())
+#define OSINFO_TYPE_DB (osinfo_db_get_type ())
 OSINFO_DECLARE_TYPE_WITH_PRIVATE_AND_CLASS(OsinfoDb,
                                            osinfo_db,
                                            OSINFO,
@@ -72,6 +71,8 @@ OsinfoOs *osinfo_db_guess_os_from_media(OsinfoDb *db,
                                         OsinfoMedia **matched_media);
 gboolean osinfo_db_identify_media(OsinfoDb *db,
                                   OsinfoMedia *media);
+OsinfoMediaList *osinfo_db_identify_medialist(OsinfoDb *db,
+                                              OsinfoMedia *media);
 
 G_DEPRECATED_FOR(osinfo_db_identify_tree)
 OsinfoOs *osinfo_db_guess_os_from_tree(OsinfoDb *db,
@@ -79,6 +80,8 @@ OsinfoOs *osinfo_db_guess_os_from_tree(OsinfoDb *db,
                                        OsinfoTree **matched_tree);
 gboolean osinfo_db_identify_tree(OsinfoDb *db,
                                  OsinfoTree *tree);
+OsinfoTreeList *osinfo_db_identify_treelist(OsinfoDb *db,
+                                            OsinfoTree *tree);
 
 // Get me all unique values for property "vendor" among operating systems
 GList *osinfo_db_unique_values_for_property_in_os(OsinfoDb *db, const gchar *propName);
@@ -97,6 +100,3 @@ OsinfoOsList *osinfo_db_unique_values_for_os_relationship(OsinfoDb *db, OsinfoPr
 
 // Get me all Platforms that 'upgrade' another Platform (or whatever relationship is specified)
 OsinfoPlatformList *osinfo_db_unique_values_for_platform_relationship(OsinfoDb *db, OsinfoProductRelationship relshp);
-
-
-#endif /* __OSINFO_DB_H__ */
