@@ -1258,6 +1258,7 @@ OsinfoDeviceDriverList *osinfo_os_get_device_drivers_prioritized(OsinfoOs *os)
 
         osinfo_list_add(OSINFO_LIST(device_drivers), OSINFO_ENTITY(l->data));
     }
+    g_list_free(sorted);
 
     return device_drivers;
 }
@@ -1352,7 +1353,7 @@ static void get_cloud_image_username_cb(OsinfoProduct *product, gpointer user_da
  * Gets the username expected to be passed to the cloud image when performing
  * installation.
  *
- * Returns: (transfer none): ther username, if present. Otherwise, NULL.
+ * Returns: (transfer none): the username, if present. Otherwise, NULL.
  */
 const gchar *osinfo_os_get_cloud_image_username(OsinfoOs *os)
 {
@@ -1393,10 +1394,10 @@ get_all_unsupported_firmwares(OsinfoList *firmwares,
 }
 
 static void
-filter_out_firmwares(OsinfoList *firmwares,
-                     OsinfoFilter *filter,
-                     OsinfoList *unsupported_firmwares,
-                     OsinfoList *out)
+filter_out_unsupported_firmwares(OsinfoList *firmwares,
+                                 OsinfoFilter *filter,
+                                 OsinfoList *unsupported_firmwares,
+                                 OsinfoList *out)
 {
     gsize len, i;
     gsize unsupported_len, j;
@@ -1461,7 +1462,7 @@ filter_out_firmwares(OsinfoList *firmwares,
     }
 }
 
-static void get_all_firmwares_cb(OsinfoProduct *product, gpointer user_data)
+static void get_all_supported_firmwares_cb(OsinfoProduct *product, gpointer user_data)
 {
     OsinfoFirmwareList *unsupported_firmwares;
     OsinfoOs *os = OSINFO_OS(product);
@@ -1474,10 +1475,10 @@ static void get_all_firmwares_cb(OsinfoProduct *product, gpointer user_data)
                                           foreach_data->unsupported_filter,
                                           OSINFO_LIST(foreach_data->unsupported_firmwares)));
 
-    filter_out_firmwares(OSINFO_LIST(os->priv->firmwares),
-                         foreach_data->filter,
-                         OSINFO_LIST(unsupported_firmwares),
-                         OSINFO_LIST(foreach_data->firmwares));
+    filter_out_unsupported_firmwares(OSINFO_LIST(os->priv->firmwares),
+                                     foreach_data->filter,
+                                     OSINFO_LIST(unsupported_firmwares),
+                                     OSINFO_LIST(foreach_data->firmwares));
 
     g_object_unref(foreach_data->unsupported_firmwares);
     foreach_data->unsupported_firmwares = unsupported_firmwares;
@@ -1488,7 +1489,7 @@ static void get_all_firmwares_cb(OsinfoProduct *product, gpointer user_data)
  * @os: an operating system
  * @filter: (allow-none)(transfer none): an optional firmware property filter
  *
- * Get all firmwares matching a given filter
+ * Get all the supported firmwares matching a given filter
  *
  * Returns: (transfer full): A list of firmwares
  *
@@ -1514,7 +1515,7 @@ OsinfoFirmwareList *osinfo_os_get_firmware_list(OsinfoOs *os, OsinfoFilter *filt
     osinfo_product_foreach_related(OSINFO_PRODUCT(os),
                                    OSINFO_PRODUCT_FOREACH_FLAG_DERIVES_FROM |
                                    OSINFO_PRODUCT_FOREACH_FLAG_CLONES,
-                                   get_all_firmwares_cb,
+                                   get_all_supported_firmwares_cb,
                                    &foreach_data);
 
     g_object_unref(foreach_data.unsupported_filter);
@@ -1523,6 +1524,121 @@ OsinfoFirmwareList *osinfo_os_get_firmware_list(OsinfoOs *os, OsinfoFilter *filt
     return foreach_data.firmwares;
 }
 
+static void get_all_firmwares_cb(OsinfoProduct *product, gpointer user_data)
+{
+    OsinfoFirmwareList *out;
+    OsinfoOs *os = OSINFO_OS(product);
+    gsize len, i;
+    gsize current_list_len, j;
+    struct GetAllFirmwaresData *foreach_data = user_data;
+
+    g_return_if_fail(OSINFO_IS_OS(os));
+
+    out = OSINFO_FIRMWARELIST(osinfo_list_new_copy(OSINFO_LIST(foreach_data->firmwares)));
+
+    len = osinfo_list_get_length(OSINFO_LIST(os->priv->firmwares));
+    current_list_len = osinfo_list_get_length(OSINFO_LIST(foreach_data->firmwares));
+    for (i = 0; i < len; i++) {
+        OsinfoFirmware *firmware;
+        const gchar *arch;
+        const gchar *type;
+        gboolean requested_by_caller;
+        gboolean already_in = FALSE;
+
+        firmware = OSINFO_FIRMWARE(osinfo_list_get_nth(OSINFO_LIST(os->priv->firmwares), i));
+        arch = osinfo_firmware_get_architecture(firmware);
+        type = osinfo_firmware_get_firmware_type(firmware);
+        requested_by_caller = TRUE;
+
+        /*
+         * In case there's no filter, the firmware can be considered as
+         * requested_by_caller.
+         *
+         * In case there's a filter, let's ensure the firmware matches the
+         * filter before adding it to the final firmwares' list.
+         */
+        if (foreach_data->filter != NULL &&
+            !osinfo_filter_matches(foreach_data->filter, OSINFO_ENTITY(firmware)))
+            requested_by_caller = FALSE;
+
+        /*
+         * In case the firmware is valid to be added, let's ensure the firmware
+         * is not already part of the firmware list.
+         *
+         * We can safely do this check here as the _foreach() function ensures
+         * we iterate through the latest child all the way back to the parent.
+         */
+        if (requested_by_caller) {
+            for (j = 0; j < current_list_len; j++) {
+                OsinfoFirmware *in;
+                const gchar *in_arch;
+                const gchar *in_type;
+
+                in = OSINFO_FIRMWARE(
+                        osinfo_list_get_nth(OSINFO_LIST(foreach_data->firmwares), j));
+                in_arch = osinfo_firmware_get_architecture(in);
+                in_type = osinfo_firmware_get_firmware_type(in);
+
+                if (g_str_equal(arch, in_arch) &&
+                    g_str_equal(type, in_type)) {
+                    already_in = TRUE;
+                    break;
+                }
+            }
+        }
+
+        /*
+         * Only add the firmware to the final list of firmwares in case it is
+         * requested by the caller and a newer entry is not yet part of the
+         * list.
+         */
+        if (requested_by_caller && !already_in)
+            osinfo_list_add(OSINFO_LIST(out), OSINFO_ENTITY(firmware));
+    }
+
+    g_object_unref(foreach_data->firmwares);
+    foreach_data->firmwares = out;
+}
+
+/**
+ * osinfo_os_get_complete_firmware_list:
+ * @os: an operating system
+ * @filter: (allow-none)(transfer none): an optional firmware property filter
+ *
+ * Get the complete firmwares matching a given filter, including the non-supported ones.
+ *
+ * Returns: (transfer full): A list of firmwares
+ *
+ * Since: 1.10.0
+ */
+OsinfoFirmwareList *osinfo_os_get_complete_firmware_list(OsinfoOs *os, OsinfoFilter *filter)
+{
+    struct GetAllFirmwaresData foreach_data;
+
+    g_return_val_if_fail(OSINFO_IS_OS(os), NULL);
+    g_return_val_if_fail(!filter || OSINFO_IS_FILTER(filter), NULL);
+
+    foreach_data.filter = filter;
+    foreach_data.firmwares = osinfo_firmwarelist_new();
+
+    osinfo_product_foreach_related(OSINFO_PRODUCT(os),
+                                   OSINFO_PRODUCT_FOREACH_FLAG_DERIVES_FROM |
+                                   OSINFO_PRODUCT_FOREACH_FLAG_CLONES,
+                                   get_all_firmwares_cb,
+                                   &foreach_data);
+
+    return foreach_data.firmwares;
+}
+
+/**
+ * osinfo_os_add_firmware:
+ * @os: an operating system
+ * @firmware: (transfer none): the firmware to add
+ *
+ * Adds @firmware to the list of firmwares of operating system @os.
+ *
+ * Since: 1.7.0
+ */
 void osinfo_os_add_firmware(OsinfoOs *os, OsinfoFirmware *firmware)
 {
     g_return_if_fail(OSINFO_IS_OS(os));

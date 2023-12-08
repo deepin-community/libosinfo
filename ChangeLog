@@ -1,3 +1,1778 @@
+2023-10-27  Victor Toso  <victortoso@redhat.com>
+
+	Update NEWS for 1.11.0 release
+
+2023-05-19  김인수  <simmon@nplob.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Translated using Weblate (Korean)
+
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Co-authored-by: 김인수 <simmon@nplob.com>
+
+2023-04-26  Daniel P. Berrangé  <berrange@redhat.com>
+
+	rpm: convert license to SPDX format
+
+2023-04-08  김인수  <simmon@nplob.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Co-authored-by: 김인수 <simmon@nplob.com>
+
+2023-04-08  Pavel Borecki  <pavel.borecki@gmail.com>
+
+	Translated using Weblate (Czech)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/cs/
+
+	Co-authored-by: Pavel Borecki <pavel.borecki@gmail.com>
+
+2023-02-27  Fabio Tomat  <f.t.public@gmail.com>
+
+	Translated using Weblate (Friulian)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fur/
+
+	Co-authored-by: Fabio Tomat <f.t.public@gmail.com>
+
+2023-02-20  Seong-ho Cho  <darkcircle.0426@gmail.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Co-authored-by: Seong-ho Cho <darkcircle.0426@gmail.com>
+
+2023-02-20  Flo H  <emailtoflorian@gmail.com>
+
+	Translated using Weblate (German)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/de/
+
+	Co-authored-by: Flo H <emailtoflorian@gmail.com>
+
+2023-02-20  Temuri Doghonadze  <temuri.doghonadze@gmail.com>
+
+	Translated using Weblate (Georgian)
+	Currently translated at 64.3% (110 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ka/
+
+	Translated using Weblate (Georgian)
+
+	Currently translated at 63.7% (109 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ka/
+
+	Translated using Weblate (Georgian)
+
+	Currently translated at 59.0% (101 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ka/
+
+	Translated using Weblate (Georgian)
+
+	Currently translated at 57.3% (98 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ka/
+
+	Translated using Weblate (Georgian)
+
+	Currently translated at 56.7% (97 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ka/
+
+	Co-authored-by: Temuri Doghonadze <temuri.doghonadze@gmail.com>
+
+2023-02-20  Fabio Tomat  <f.t.public@gmail.com>
+
+	Translated using Weblate (Friulian)
+	Currently translated at 81.8% (140 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fur/
+
+	Co-authored-by: Fabio Tomat <f.t.public@gmail.com>
+
+2023-02-20  Julien Lepiller  <fedora-account@lepiller.eu>
+
+	Translated using Weblate (French)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fr/
+
+	Co-authored-by: Julien Lepiller <fedora-account@lepiller.eu>
+
+2023-02-20  Jiri Grönroos  <jiri.gronroos@iki.fi>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 73.6% (126 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Jiri Grönroos <jiri.gronroos@iki.fi>
+
+2023-02-15  Will Thompson  <wjt@endlessos.org>
+
+	install-script: Fix "trough" typo in docstrings
+	A trough is a long, narrow container, open on top, for feeding or
+	watering animals.
+
+2022-09-30  Daniel P. Berrangé  <berrange@redhat.com>
+
+	ci: refresh with latest lcitool manifest
+	This refresh switches the CI for contributors to be triggered by merge
+	requests. Pushing to a branch in a fork will no longer run CI pipelines,
+	in order to avoid consuming CI minutes. To regain the original behaviour
+	contributors can opt-in to a pipeline on push
+
+	   git push <remote> -o ci.variable=RUN_PIPELINE=1
+
+	This variable can also be set globally on the repository, though this is
+	not recommended. Upstream repo pushes to branches will run CI.
+
+	The use of containers has changed in this update, with only the upstream
+	repo creating containers, in order to avoid consuming contributors'
+	limited storage quotas. A fork with existing container images may delete
+	them. Containers will be rebuilt upstream when pushing commits with CI
+	changes to the default branch. Any other scenario with CI changes will
+	simply install build pre-requisite packages in a throaway environment,
+	using the ci/buildenv/ scripts. These scripts may also be used on a
+	contributor's local machines.
+
+	With pipelines triggered by merge requests, it is also now possible to
+	workaround the inability of contributors to run pipelines if they have
+	run out of CI quota. A project member can trigger a pipeline from the
+	merge request, which will run in context of upstream, however, note
+	this should only be done after reviewing the code for any malicious
+	CI changes.
+
+2022-08-25  Temuri Doghonadze  <temuri.doghonadze@gmail.com>
+
+	Translated using Weblate (Georgian)
+	Currently translated at 54.3% (93 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ka/
+
+	Co-authored-by: Temuri Doghonadze <temuri.doghonadze@gmail.com>
+
+2022-08-25  Philipp Hahn  <pmhahn+fedora@pmhahn.de>
+
+	Translated using Weblate (German)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/de/
+
+	Co-authored-by: Philipp Hahn <pmhahn+fedora@pmhahn.de>
+
+2022-08-22  Dan Church  <amphetamachine@gmail.com>
+
+	DRY meson build script
+	Introduce versioned_name = 'libosinfo-1.0'
+
+	No functional change other than getting rid of the repetition.
+
+2022-08-11  Temuri Doghonadze  <temuri.doghonadze@gmail.com>
+
+	Translated using Weblate (Georgian)
+	Currently translated at 54.3% (93 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ka/
+
+	Added translation using Weblate (Georgian)
+
+	Co-authored-by: Temuri Doghonadze <temuri.doghonadze@gmail.com>
+
+2022-08-09  Daniel P. Berrangé  <berrange@redhat.com>
+
+	rpm: adapt to soup3, switch to %autosetup & add missing gtk-doc
+
+2022-08-08  Daniel P. Berrangé  <berrange@redhat.com>
+
+	rpm: merge mingw sub-packages into native spec
+	One specfile containing both native and mingw builds is the
+	new best practice for Fedora. This reduces the maint burden
+	and ensures the mingw packages don't fall behind.
+
+2022-07-18  김인수  <simmon@nplob.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Co-authored-by: 김인수 <simmon@nplob.com>
+
+2022-04-12  Seong-ho Cho  <darkcircle.0426@gmail.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Co-authored-by: Seong-ho Cho <darkcircle.0426@gmail.com>
+
+2022-03-27  Daniel Kolesa  <daniel@octaforge.org>
+
+	build: only include header file in the declared libosinfo dep
+	This prevents compiling a separate copy of the enums .c file
+	into anything using the libosinfo_dep target. Doing so would
+	result in types occasionally getting registered twice, at least
+	when libosinfo is built with Clang.
+
+	build: remove unused enum template files
+	These are not used as Meson uses its own builtin ones in the
+	gnome module, so they were just left over.
+
+	They were also incorrect as G_GNUC_CONST on _get_type would
+	break things (_get_type functions have side effects here).
+
+2022-03-08  Victor Toso  <victortoso@redhat.com>
+
+	ci: refresh generated files
+	* Adds EPEL to centos-stream-9
+	* Adds cppi dependency to Fedora and Opensuse
+	* Some cosmetic changes
+
+	ci: remove centos-8 due EOL
+
+2022-02-25  Matt Turner  <mattst88@gmail.com>
+
+	build: Add option to select libsoup ABI
+	This allows distributions that ship both versions of libsoup and choose
+	which version of libsoup will be linked.
+
+2022-02-16  Victor Toso  <victortoso@redhat.com>
+
+	tests: tree: Fix leaks of OsinfoTree *
+	==420507== 509 (48 direct, 461 indirect) bytes in 1 blocks are definitely lost in loss record 2,401 of 2,440
+	==420507==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48815F8: osinfo_tree_new (osinfo_tree.c:462)
+	==420507==    by 0x402E99: test_create_tree.constprop.0 (test-tree.c:119)
+	==420507==    by 0x403027: test_matching (test-tree.c:176)
+	==420507==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x4023B9: main (test-tree.c:206)
+	==420507==
+	==420507== 511 (48 direct, 463 indirect) bytes in 1 blocks are definitely lost in loss record 2,402 of 2,440
+	==420507==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48815F8: osinfo_tree_new (osinfo_tree.c:462)
+	==420507==    by 0x402E99: test_create_tree.constprop.0 (test-tree.c:119)
+	==420507==    by 0x402FD2: test_matching (test-tree.c:155)
+	==420507==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x4023B9: main (test-tree.c:206)
+	==420507==
+	==420507== 600 (48 direct, 552 indirect) bytes in 1 blocks are definitely lost in loss record 2,412 of 2,440
+	==420507==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48815F8: osinfo_tree_new (osinfo_tree.c:462)
+	==420507==    by 0x402E99: test_create_tree.constprop.0 (test-tree.c:119)
+	==420507==    by 0x402FEF: test_matching (test-tree.c:162)
+	==420507==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x4023B9: main (test-tree.c:206)
+	==420507==
+	==420507== 626 (48 direct, 578 indirect) bytes in 1 blocks are definitely lost in loss record 2,413 of 2,440
+	==420507==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48815F8: osinfo_tree_new (osinfo_tree.c:462)
+	==420507==    by 0x402E99: test_create_tree.constprop.0 (test-tree.c:119)
+	==420507==    by 0x40300E: test_matching (test-tree.c:169)
+	==420507==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x4023B9: main (test-tree.c:206)
+	==420507==
+	==420507== 634 (48 direct, 586 indirect) bytes in 1 blocks are definitely lost in loss record 2,414 of 2,440
+	==420507==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420507==    by 0x48815F8: osinfo_tree_new (osinfo_tree.c:462)
+	==420507==    by 0x402E99: test_create_tree.constprop.0 (test-tree.c:119)
+	==420507==    by 0x402FB9: test_matching (test-tree.c:148)
+	==420507==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420507==    by 0x4023B9: main (test-tree.c:206)
+
+	and
+
+	==420470== 1,007 (48 direct, 959 indirect) bytes in 1 blocks are definitely lost in loss record 2,456 of 2,477
+	==420470==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420470==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420470==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420470==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420470==    by 0x48815F8: osinfo_tree_new (osinfo_tree.c:462)
+	==420470==    by 0x48817B2: load_keyinfo (osinfo_tree.c:618)
+	==420470==    by 0x4031A2: test_create_from_treeinfo (test-tree.c:93)
+	==420470==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420470==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420470==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420470==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420470==    by 0x4023B9: main (test-tree.c:206)
+
+	tests: media: Fix leaks of OsinfoMedia *
+	==419218== 785 (48 direct, 737 indirect) bytes in 1 blocks are definitely lost in loss record 2,438 of 2,468
+	==419218==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x487D918: osinfo_media_new (osinfo_media.c:704)
+	==419218==    by 0x4034CF: test_create_media (test-media.c:151)
+	==419218==    by 0x4034CF: test_matching (test-media.c:228)
+	==419218==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x40232F: main (test-media.c:257)
+	==419218==
+	==419218== 787 (48 direct, 739 indirect) bytes in 1 blocks are definitely lost in loss record 2,439 of 2,468
+	==419218==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x487D918: osinfo_media_new (osinfo_media.c:704)
+	==419218==    by 0x4033EB: test_create_media (test-media.c:151)
+	==419218==    by 0x4033EB: test_matching (test-media.c:188)
+	==419218==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x40232F: main (test-media.c:257)
+	==419218==
+	==419218== 827 (48 direct, 779 indirect) bytes in 1 blocks are definitely lost in loss record 2,440 of 2,468
+	==419218==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x487D918: osinfo_media_new (osinfo_media.c:704)
+	==419218==    by 0x402EF3: test_create_media (test-media.c:151)
+	==419218==    by 0x403435: test_matching (test-media.c:196)
+	==419218==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x40232F: main (test-media.c:257)
+	==419218==
+	==419218== 871 (48 direct, 823 indirect) bytes in 1 blocks are definitely lost in loss record 2,443 of 2,468
+	==419218==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x487D918: osinfo_media_new (osinfo_media.c:704)
+	==419218==    by 0x402EF3: test_create_media (test-media.c:151)
+	==419218==    by 0x403491: test_matching (test-media.c:212)
+	==419218==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x40232F: main (test-media.c:257)
+	==419218==
+	==419218== 871 (48 direct, 823 indirect) bytes in 1 blocks are definitely lost in loss record 2,444 of 2,468
+	==419218==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x487D918: osinfo_media_new (osinfo_media.c:704)
+	==419218==    by 0x402EF3: test_create_media (test-media.c:151)
+	==419218==    by 0x4034BB: test_matching (test-media.c:220)
+	==419218==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x40232F: main (test-media.c:257)
+	==419218==
+	==419218== 929 (48 direct, 881 indirect) bytes in 1 blocks are definitely lost in loss record 2,446 of 2,468
+	==419218==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x487D918: osinfo_media_new (osinfo_media.c:704)
+	==419218==    by 0x402EF3: test_create_media (test-media.c:151)
+	==419218==    by 0x403467: test_matching (test-media.c:204)
+	==419218==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x40232F: main (test-media.c:257)
+	==419218==
+	==419218== 949 (48 direct, 901 indirect) bytes in 1 blocks are definitely lost in loss record 2,447 of 2,468
+	==419218==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==419218==    by 0x487D918: osinfo_media_new (osinfo_media.c:704)
+	==419218==    by 0x402EF3: test_create_media (test-media.c:151)
+	==419218==    by 0x4033D7: test_matching (test-media.c:180)
+	==419218==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==419218==    by 0x40232F: main (test-media.c:257)
+
+	tests: db: Fix leaks of OsinfoMedia *
+	==448366== 18,584 (256 direct, 18,328 indirect) bytes in 2 blocks are definitely lost in loss record 2,649 of 2,650
+	==448366==    at 0x48F34A3: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==448366==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==448366==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==448366==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==448366==    by 0x4888427: osinfo_loader_get_os (osinfo_loader.c:497)
+	==448366==    by 0x4888427: osinfo_loader_get_os (osinfo_loader.c:492)
+	==448366==    by 0x488A3EB: osinfo_loader_os (osinfo_loader.c:1646)
+	==448366==    by 0x488A3EB: osinfo_loader_root (osinfo_loader.c:1886)
+	==448366==    by 0x488A3EB: osinfo_loader_process_xml (osinfo_loader.c:1975)
+	==448366==    by 0x488A3EB: osinfo_loader_process_file_reg_xml (osinfo_loader.c:2184)
+	==448366==    by 0x488D18A: osinfo_loader_process_list (osinfo_loader.c:2517)
+	==448366==    by 0x488D38F: osinfo_loader_process_path (osinfo_loader.c:2589)
+	==448366==    by 0x40621F: test_identify_media (test-db.c:434)
+	==448366==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==448366==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==448366==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==448366==
+	==448366== 44,969 (896 direct, 44,073 indirect) bytes in 7 blocks are definitely lost in loss record 2,650 of 2,650
+	==448366==    at 0x48F34A3: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==448366==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==448366==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==448366==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==448366==    by 0x4888427: osinfo_loader_get_os (osinfo_loader.c:497)
+	==448366==    by 0x4888427: osinfo_loader_get_os (osinfo_loader.c:492)
+	==448366==    by 0x488A3EB: osinfo_loader_os (osinfo_loader.c:1646)
+	==448366==    by 0x488A3EB: osinfo_loader_root (osinfo_loader.c:1886)
+	==448366==    by 0x488A3EB: osinfo_loader_process_xml (osinfo_loader.c:1975)
+	==448366==    by 0x488A3EB: osinfo_loader_process_file_reg_xml (osinfo_loader.c:2184)
+	==448366==    by 0x488D18A: osinfo_loader_process_list (osinfo_loader.c:2517)
+	==448366==    by 0x488D38F: osinfo_loader_process_path (osinfo_loader.c:2589)
+	==448366==    by 0x406B32: test_identify_all_media (test-db.c:547)
+	==448366==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==448366==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==448366==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+
+	and
+
+	==408306== 788 (48 direct, 740 indirect) bytes in 1 blocks are definitely lost in loss record 2,626 of 2,668
+	==408306==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==408306==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==408306==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==408306==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==408306==    by 0x487D918: osinfo_media_new (osinfo_media.c:704)
+	==408306==    by 0x406B7B: test_identify_all_media (test-db.c:551)
+	==408306==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==408306==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==408306==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==408306==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==408306==    by 0x40366E: main (test-db.c:918)
+
+	and
+
+	==402464== 48 bytes in 1 blocks are definitely lost in loss record 1,587 of 2,714
+	==402464==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==402464==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==402464==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==402464==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==402464==    by 0x487D918: osinfo_media_new (osinfo_media.c:704)
+	==402464==    by 0x406826: test_identify_media (test-db.c:519)
+	==402464==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==402464==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==402464==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==402464==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==402464==    by 0x40366E: main (test-db.c:917)
+
+	tests: os: Fix some memory leaks
+	* OsinfoLoader
+
+	==413574== 2,512 (40 direct, 2,472 indirect) bytes in 1 blocks are definitely lost in loss record 2,489 of 2,495
+	==413574==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==413574==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==413574==    by 0x48DBD1C: g_object_new_with_properties (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==413574==    by 0x48DC820: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==413574==    by 0x407270: test_firmwares_complete_list_inheritance (test-os.c:897)
+	==413574==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==413574==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==413574==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==413574==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==413574==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==413574==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==413574==    by 0x403769: main (test-os.c:1062)
+
+	and
+
+	==414148== 2,480 (40 direct, 2,440 indirect) bytes in 1 blocks are definitely lost in loss record 2,477 of 2,484
+	==414148==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==414148==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==414148==    by 0x48DBD1C: g_object_new_with_properties (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==414148==    by 0x48DC820: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==414148==    by 0x40531D: test_firmwares_complete_list (test-os.c:855)
+	==414148==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==414148==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==414148==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==414148==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==414148==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==414148==    by 0x403769: main (test-os.c:1061)
+
+	* OsinfoTreeList
+
+	==414820== 1,793 (48 direct, 1,745 indirect) bytes in 1 blocks are definitely lost in loss record 2,424 of 2,438
+	==414820==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==414820==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==414820==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==414820==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==414820==    by 0x4879165: osinfo_os_get_tree_list (osinfo_os.c:698)
+	==414820==    by 0x404D3C: test_loader (test-os.c:124)
+	==414820==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==414820==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==414820==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==414820==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==414820==    by 0x403769: main (test-os.c:1060)
+
+	* OsinfoFirmwareList
+
+	==414989== 1,537 (48 direct, 1,489 indirect) bytes in 1 blocks are definitely lost in loss record 2,391 of 2,405
+	==414989==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==414989==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==414989==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==414989==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==414989==    by 0x48763CA: osinfo_list_new_copy (osinfo_list.c:458)
+	==414989==    by 0x4877257: get_all_firmwares_cb (osinfo_os.c:1536)
+	==414989==    by 0x487348E: osinfo_product_foreach_related (osinfo_product.c:436)
+	==414989==    by 0x4873502: osinfo_product_foreach_related (osinfo_product.c:467)
+	==414989==    by 0x487A6A4: osinfo_os_get_complete_firmware_list (osinfo_os.c:1623)
+	==414989==    by 0x40744D: test_firmwares_complete_list_inheritance (test-os.c:942)
+	==414989==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==414989==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+
+	* OsinfoDeviceDriverList
+
+	==415264== 512 (48 direct, 464 indirect) bytes in 1 blocks are definitely lost in loss record 2,355 of 2,384
+	==415264==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==415264==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==415264==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==415264==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==415264==    by 0x487A126: osinfo_os_get_device_drivers_prioritized (osinfo_os.c:1251)
+	==415264==    by 0x405830: test_device_driver_priority_helper (test-os.c:235)
+	==415264==    by 0x4059BD: test_device_driver_prioritized_priority (test-os.c:262)
+	==415264==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==415264==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==415264==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==415264==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==415264==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+
+	tests: firmware: Fix some memory leaks
+	* OsinfoFirmware
+
+	==401454== 419 (48 direct, 371 indirect) bytes in 1 blocks are definitely lost in loss record 2,316 of 2,351
+	==401454==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==401454==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==401454==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==401454==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==401454==    by 0x486C5FD: osinfo_firmware_new (osinfo_firmware.c:161)
+	==401454==    by 0x4029A9: test_basic (test-firmware.c:27)
+	==401454==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==401454==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==401454==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==401454==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==401454==    by 0x4022F0: main (test-firmware.c:85)
+
+	* OsinfoFilter
+
+	==401543== 354 (40 direct, 314 indirect) bytes in 1 blocks are definitely lost in loss record 2,300 of 2,341
+	==401543==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==401543==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==401543==    by 0x48DBD1C: g_object_new_with_properties (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==401543==    by 0x48DC820: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==401543==    by 0x402CA6: test_loaded (test-firmware.c:57)
+	==401543==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==401543==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==401543==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==401543==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==401543==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==401543==    by 0x402330: main (test-firmware.c:85)
+
+2022-02-15  Victor Toso  <victortoso@redhat.com>
+
+	tests: image: Fix leak of OsinfoOsVariantList *
+	==383130== 1,782 (96 direct, 1,686 indirect) bytes in 2 blocks are definitely lost in loss record 2,336 of 2,350
+	==383130==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==383130==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==383130==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==383130==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==383130==    by 0x4883EFA: osinfo_image_get_os_variants (osinfo_image.c:356)
+	==383130==    by 0x402B9B: test_loaded (test-image.c:74)
+	==383130==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==383130==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==383130==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==383130==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==383130==    by 0x402346: main (test-image.c:114)
+
+	media: Fix leak of GList *
+	Found by covscan.
+
+	  6.  libosinfo-1.9.0/osinfo/osinfo_media.c:1675: alloc_fn: Storage is returned from allocation function "osinfo_entity_get_param_value_list".
+	  7.  libosinfo-1.9.0/osinfo/osinfo_media.c:1675: var_assign: Assigning: "ids" = storage returned from "osinfo_entity_get_param_value_list(OSINFO_ENTITY(media), "variant")".
+	  8.  libosinfo-1.9.0/osinfo/osinfo_media.c:1679: var_assign: Assigning: "node" = "ids".
+	  12. libosinfo-1.9.0/osinfo/osinfo_media.c:1690: leaked_storage: Variable "ids" going out of scope leaks the storage it points to.
+	  #  1688|       g_object_unref(os_variants);
+	  #  1689|
+	  #  1690|->     return media_variants;
+	  #  1691|   }
+	  #  1692|
+
+	install-script: Fix leak of GList *
+	Found by covscan.
+
+	 14. libosinfo-1.9.0/osinfo/osinfo_install_script.c:832:
+	     leaked_storage: Variable "values" going out of scope leaks the
+	     storage it points to.
+	 #  830|                   propagate_libxml_error(error, _("Unable to create XML node '%s'"),
+	 #  831|                                          (const gchar *)tmp1->data);
+	 #  832|->                 goto error;
+	 #  833|               }
+	 #  834|               if (!(xmlAddChild(node, data))) {
+
+	tree: Fix small leak of char *
+	==422112== 15 bytes in 1 blocks are definitely lost in loss record 216 of 2,333
+	==422112==    at 0x484486F: malloc (vg_replace_malloc.c:381)
+	==422112==    by 0x4AEE9AF: __vasprintf_internal (vasprintf.c:71)
+	==422112==    by 0x49B3812: g_vasprintf (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==422112==    by 0x4989830: g_strdup_vprintf (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==422112==    by 0x49898EC: g_strdup_printf (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==422112==    by 0x488173F: load_keyinfo (osinfo_tree.c:597)
+	==422112==    by 0x4032B2: test_create_from_treeinfo (test-tree.c:93)
+	==422112==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==422112==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==422112==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==422112==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==422112==    by 0x402449: main (test-tree.c:206)
+
+	tree: Fix leaks in osinfo_tree_get_os_variants()
+	Leak of OsinfoFilter *
+
+	==420790== 343 (40 direct, 303 indirect) bytes in 1 blocks are definitely lost in loss record 2,302 of 2,343
+	==420790==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420790==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420790==    by 0x48DBD1C: g_object_new_with_properties (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420790==    by 0x48DC820: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==420790==    by 0x4882C2D: osinfo_tree_get_os_variants (osinfo_tree.c:1147)
+	==420790==    by 0x402C0A: test_os_variants (test-tree.c:57)
+	==420790==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420790==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420790==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420790==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==420790==    by 0x402449: main (test-tree.c:206)
+
+	Leak of GList *
+
+	==421621== 24 bytes in 1 blocks are definitely lost in loss record 1,016 of 2,334
+	==421621==    at 0x484486F: malloc (vg_replace_malloc.c:381)
+	==421621==    by 0x496E3D8: g_malloc (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==421621==    by 0x4987024: g_slice_alloc (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==421621==    by 0x4963A2A: g_list_copy_deep (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==421621==    by 0x4882C25: osinfo_tree_get_os_variants (osinfo_tree.c:1145)
+	==421621==    by 0x402C0A: test_os_variants (test-tree.c:57)
+	==421621==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==421621==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==421621==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==421621==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==421621==    by 0x402449: main (test-tree.c:206)
+
+	os: Fix leak of a GList *
+	Just the cointainer is leaking.
+
+	==416264== 48 (24 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 1,444 of 2,345
+	==416264==    at 0x484486F: malloc (vg_replace_malloc.c:381)
+	==416264==    by 0x496E3D8: g_malloc (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==416264==    by 0x4987024: g_slice_alloc (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==416264==    by 0x495DDA9: g_list_prepend (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==416264==    by 0x4958418: g_hash_table_get_values (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==416264==    by 0x487A10F: osinfo_os_get_device_drivers_prioritized (osinfo_os.c:1248)
+	==416264==    by 0x405835: test_device_driver_priority_helper (test-os.c:236)
+	==416264==    by 0x4059E2: test_device_driver_prioritized_priority (test-os.c:267)
+	==416264==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==416264==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==416264==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==416264==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+
+	db: Fix leak of OsinfoInstallScriptList *
+	==404438== 320 (48 direct, 272 indirect) bytes in 1 blocks are definitely lost in loss record 2,563 of 2,686
+	==404438==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==404438==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==404438==    by 0x48DC2C7: g_object_new_valist (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==404438==    by 0x48DC7FC: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==404438==    by 0x48763CA: osinfo_list_new_copy (osinfo_list.c:458)
+	==404438==    by 0x487F24E: osinfo_media_get_install_script_list (osinfo_media.c:1841)
+	==404438==    by 0x488690C: fill_media (osinfo_db.c:773)
+	==404438==    by 0x488690C: osinfo_db_identify_media (osinfo_db.c:826)
+	==404438==    by 0x406716: test_identify_media (test-db.c:502)
+	==404438==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==404438==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==404438==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==404438==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+
+	image: Fix leaks in osinfo_image_get_os_variants()
+	==382381== 48 bytes in 2 blocks are definitely lost in loss record 1,441 of 2,342
+	==382381==    at 0x484486F: malloc (vg_replace_malloc.c:381)
+	==382381==    by 0x496E3D8: g_malloc (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==382381==    by 0x4987024: g_slice_alloc (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==382381==    by 0x4963A2A: g_list_copy_deep (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==382381==    by 0x4883EE5: osinfo_image_get_os_variants (osinfo_image.c:353)
+	==382381==    by 0x402C6A: test_loaded (test-image.c:74)
+	==382381==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==382381==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==382381==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==382381==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==382381==    by 0x402386: main (test-image.c:114)
+	==382381==
+	==382381== 686 (80 direct, 606 indirect) bytes in 2 blocks are definitely lost in loss record 2,316 of 2,342
+	==382381==    at 0x48F3437: g_type_create_instance (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==382381==    by 0x48DAD4C: ??? (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==382381==    by 0x48DBD1C: g_object_new_with_properties (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==382381==    by 0x48DC820: g_object_new (in /usr/lib64/libgobject-2.0.so.0.7000.3)
+	==382381==    by 0x4883EED: osinfo_image_get_os_variants (osinfo_image.c:355)
+	==382381==    by 0x402C6A: test_loaded (test-image.c:74)
+	==382381==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==382381==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==382381==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==382381==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==382381==    by 0x402386: main (test-image.c:114)
+
+	loader: clear pointer before using it
+	osinfo_loader_nodeset() expects xmlNodePtr ** to be NULL and it will
+	set it to NULL if not already set. This can lead to memory leaks as
+	seen in previous commit. Let's clear the pointer instead and add a
+	guard to clarify the parameter's expectations.
+
+	loader: Fix leak of xmlNodePtr *
+	The pointer is used as output parameter of osinfo_loader_nodeset() which
+	sets it to NULL before using it. The caller should free its contents
+	before reusing it.
+
+	==382836== 104 bytes in 8 blocks are definitely lost in loss record 2,097 of 2,333
+	==382836==    at 0x4849464: calloc (vg_replace_malloc.c:1328)
+	==382836==    by 0x496E510: g_malloc0 (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==382836==    by 0x4888DD7: osinfo_loader_nodeset (osinfo_loader.c:237)
+	==382836==    by 0x488A98E: osinfo_loader_os (osinfo_loader.c:1661)
+	==382836==    by 0x488A98E: osinfo_loader_root (osinfo_loader.c:1884)
+	==382836==    by 0x488A98E: osinfo_loader_process_xml (osinfo_loader.c:1973)
+	==382836==    by 0x488A98E: osinfo_loader_process_file_reg_xml (osinfo_loader.c:2182)
+	==382836==    by 0x488D07A: osinfo_loader_process_list (osinfo_loader.c:2515)
+	==382836==    by 0x488D27F: osinfo_loader_process_path (osinfo_loader.c:2587)
+	==382836==    by 0x402A61: test_loaded (test-image.c:59)
+	==382836==    by 0x4992BD5: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==382836==    by 0x49928FA: ??? (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==382836==    by 0x49930A9: g_test_run_suite (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==382836==    by 0x49930D0: g_test_run (in /usr/lib64/libglib-2.0.so.0.7000.3)
+	==382836==    by 0x402386: main (test-image.c:114)
+
+2022-02-14  Victor Toso  <victortoso@redhat.com>
+
+	Post release version bump to 1.11.0
+
+	Update NEWS for 1.10.0 release
+
+2022-02-11  Laszlo Ersek  <lersek@redhat.com>
+
+	loader: work around lstat()/EACCES regression in _g_local_file_info_get()
+	In glib commit 71e7b5800a31 ("Handle MLS selinux policy better",
+	2010-07-08), which was made for
+	<https://bugzilla.gnome.org/show_bug.cgi?id=623692>, an lstat() failure
+	with error code EACCES was *masked* in function _g_local_file_info_get().
+
+	Consequently, if osinfo_loader_find_files() calls g_file_query_info() on a
+	file that is inaccessible due to (e.g.) a missing "x" (search) permission
+	on a leading directory, then g_file_query_info() succeeds, our
+	"skipMissing" branch is dead, g_file_info_get_attribute_uint32() is
+	reached, and it returns G_FILE_TYPE_UNKNOWN.
+
+	As a consequence, the outer osinfo_loader_process_default_path() function
+	can fail, even though it passes skipMissing=TRUE to
+	osinfo_loader_process_list(). Example:
+
+	> $ HOME=/root \
+	>   OSINFO_SYSTEM_DIR=/usr/share/osinfo \
+	>   build/tools/osinfo-query os
+	> Error loading OS data: Can't read path /root/.config/osinfo
+
+	Arguably, this situation should be handled by simply skipping the
+	inaccessible path, as if all leading directories could be searched, and
+	only the last pathname compontent (the filename entry) didn't exist in its
+	direct parent directory.
+
+	The glib regression was reported in 2017:
+
+	  https://bugzilla.gnome.org/show_bug.cgi?id=777187
+
+	and then migrated to gitlab:
+
+	  https://gitlab.gnome.org/GNOME/glib/-/issues/1237
+
+	but it's still not solved today.
+
+	Work around the issue by honoring "skipMissing" on the G_FILE_TYPE_UNKNOWN
+	branch. Demonstration:
+
+	> $ HOME=/root \
+	>   OSINFO_SYSTEM_DIR=/usr/share/osinfo \
+	>   build/tools/osinfo-query os
+	>
+	> ** (osinfo-query:9924): WARNING **: 13:23:12.776: Can't read path /root/.config/osinfo
+	>  Short ID       | Name             | Version | ID
+	> ----------------+------------------+---------+----------------------------------------
+	>  alpinelinux3.5 | Alpine Linux 3.5 | 3.5     | http://alpinelinux.org/alpinelinux/3.5
+	> ...
+
+	Bugzilla: https://bugzilla.redhat.com/show_bug.cgi?id=2051559
+
+2022-02-04  Daniel P. Berrangé  <berrange@redhat.com>
+
+	tools: add an --all flag to osinfo-detect to report all matches
+	By default it still only displays the first operating system with
+	matching media/tree, but if --all is given, all possible matches
+	will be displayed
+
+	osinfo: add API for resolving multiple tree matches
+	A provided tree object might match multiple entries from the
+	database. Add an API that allows for this possibility to let
+	applications decide how to handle it.
+
+	osinfo: add API for resolving multiple media matches
+	A provided media object might match multiple entries from the
+	database. Add an API that allows for this possibility to let
+	applications decide how to handle it.
+
+	osinfo: allow tree matching code to report multiple entries
+	Refactor the tree matching code so that it can be told to return all
+	matching entries, rather than only the first. The original behaviour
+	can be requested to short-circuit matching if the caller only requires
+	the first match.
+
+	osinfo: allow media matching code to report multiple entries
+	Refactor the media matching code so that it can be told to return all
+	matching entries, rather than only the first. The original behaviour
+	can be requested to short-circuit matching if the caller only requires
+	the first match.
+
+	osinfo: honour tree architecture when matching
+	The tree matching code currently ignores the tree architecture which
+	is generally ok, since osinfo_tree_create_from_location will leave it
+	set to NULL.
+
+	None the less, if an architecture is provided for the unknown tree,
+	we should only return results that match this architecture.
+
+	osinfo: honour media architecture when matching
+	The media matching code currently ignores the media architecture which
+	is generally ok, since osinfo_media_create_from_location will leave it
+	set to NULL.
+
+	None the less, if an architecture is provided for the unknown media,
+	we should only return results that match this architecture.
+
+	guests: use a OsinfoTreeList when detecting tree matches
+	In preparation for returning multiple tree matches, pass a
+	OsinfoTreeList object around.
+
+	osinfo: don't set the 'os' property on matched tree
+	We just got the OsinfoTee list from the OsinfoOs object, thus we know
+	that it already has the 'os' property set.
+
+	guests: use a OsinfoMediaList when detecting media matches
+	In preparation for returning multiple media matches, pass a
+	OsinfoMediaList object around.
+
+	osinfo: refactor tree guessing internal helper
+	We want the return value from the tree guessing helper to indicate
+	whether any matches were used, and have the OsinfoOs as an output
+	parameter which can now be optional.
+
+	osinfo: refactor media guessing internal helper
+	We want the return value from the media guessing helper to indicate
+	whether any matches were used, and have the OsinfoOs as an output
+	parameter which can now be optional.
+
+	osinfo: pull tree matching logic into public API
+	The logic for matching an unidentified tree against a reference tree
+	is potentially useful to applications and should be part of a public
+	API, rather than hidden.
+
+	osinfo: pull media matching logic into public API
+	The logic for matching an unidentified media against a reference media
+	is potentially useful to applications and should be part of a public
+	API, rather than hidden.
+
+	osinfo: add missing line break between methods
+
+2022-01-18  Ettore Atalan  <atalanttore@googlemail.com>
+
+	Translated using Weblate (German)
+	Currently translated at 81.8% (140 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/de/
+
+	Co-authored-by: Ettore Atalan <atalanttore@googlemail.com>
+
+2022-01-18  Jan Kuparinen  <copper_fin@hotmail.com>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 73.0% (125 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Jan Kuparinen <copper_fin@hotmail.com>
+
+2022-01-18  Daniel P. Berrangé  <berrange@redhat.com>
+
+	osinfo: use consistent include syntax for public headers
+
+	osinfo: switch to '#pragma once'
+	The current include files use the pattern
+
+	 #ifndef __OOSINFO_BLAH_H__
+	 # define __OOSINFO_BLAH_H__
+
+	 #endif /* __OOSINFO_BLAH_H__ */
+
+	Since we already mandated GCC + CLang, we can replace this with a
+	simpler incantation
+
+	 #pragma once
+
+	osinfo: fix bad preprocessor indentation
+
+2021-11-29  Victor Toso  <victortoso@redhat.com>
+
+	loader: add check for unknown file type
+	So we can provide a meaningful error message in case the provided path
+	is not accessible to running process.
+
+	e.g: running HOME=/root osinfo-query os we would get
+	  `Error loading OS data: Unexpected file type`
+	and now we get
+	  `Error loading OS data: Can't read path /root/.config/osinfo`
+
+	This error was first hit with v2v [0] that was leaking $USER and $HOME
+	of root user when osinfo-query as vsdm user with `sudo -c vdsm`. The
+	example above is a simple way to show lack of permision of
+	osinfo-query to read the root's $HOME.
+
+	[0] https://bugzilla.redhat.com/show_bug.cgi?id=1901423
+
+	Related: https://bugzilla.redhat.com/show_bug.cgi?id=1902720
+
+2021-11-24  Fabiano Fidêncio  <fabiano@fidencio.org>
+
+	os: Add `_get_complete_firmware_list()`
+	After realising the mistake of only returning **supported** firmwares on
+	`_get_firmware_list()`, let's work that limitation around by adding a
+	new function, `osinfo_os_get_complete_firmware_list()`, which returns
+	the complete list of firmwares, including both supported and unsupported
+	ones.
+
+	os: _get_firmware_list() returns supported FWs
+	Let's make sure we document that `_get_firmware_list()` returns **only**
+	supported firmwares, rather than returning **all** the firmwares
+	avaiable for an OS.
+
+	As part of the documentation change, let's also adapt the internal
+	functions to reflect that.
+
+	os: Add missing docs for _add_firmware()
+	osinfo_os_add_firmware() has been added as part of 1.7.0 release but,
+	somehow, its documentation has been missing.
+
+2021-11-12  Andrea Bolognani  <abologna@redhat.com>
+
+	ci: Add new targets
+	lcitool now supports CentOS Stream 9, Debian 11 and Fedora 35.
+
+	ci: Enable RPM jobs on CentOS
+	Now that we have a recent version of meson installed from
+	distro packages instead of PyPI, RPM builds will no longer
+	fail.
+
+	ci: Refresh generated files
+	Notable differences:
+
+	  * meson is now installed from the distro repositories
+	    instead of PyPI on CentOS 8 and CentOS Stream 8. We
+	    can finally do this because the version they ship
+	    has been updated.
+
+	  * intltool and itstool (which are used to build osinfo-db
+	    as part of the CI pipeline) are no longer included in the
+	    container images. osinfo-db-tools moved away from the
+	    former and never adopted the latter.
+
+	ci: Drop Fedora 33
+	It's going to be EOL in a matter of days, and lcitool already
+	dropped support for it.
+
+2021-10-10  Daniel P. Berrangé  <berrange@redhat.com>
+
+	Skip over entity reference checks if loading failed
+	If we fail to parse one of the XML files, we abort loading the
+	database. We then carry on to do an entity reference check which
+	will almost certainly fail due to not having loaded many XML
+	files. We need to skip over the entity reference check on failure
+	to avoid spamming the user with bogus errors.
+
+	Warn about unexpected files in the database
+	To help remind users that files must end in .xml, warn about any
+	unusually named files.
+
+	There are a couple of files we should not warn about since we expect
+	them to be present
+
+	 - VERSION
+	 - LICENSE
+
+	The entire 'schema' sub-directory should be ignored.
+	Common editor backups "~" and ".bak" should be ignored.
+
+	Fix hiding of database entries
+	The osinfo-db documentation says that a local admin/user can hide an
+	entity from the system location:
+
+	[quote]
+	If the file is zero-length or points to /dev/null, then this
+	represents a black-out override. This indicates that the
+	ENTITY-NAME.xml file from a lower priority directory MUST NOT
+	be loaded.
+	[/quote]
+
+	This does not, however, work at all. If a zero length file is given,
+	it tries to parse this as XML and fails, causing the entire DB loading
+	process to be aborted. This leaves the DB with dangling references.
+
+	If a symlink to /dev/null is given, it is entirely ignored because
+	the file is a block device and we only try to load regular files.
+	Instead of only loading regular files, we need to load any type of
+	file that has a .xml extension.
+
+	This appears to be broken since the very first impl of the new DB
+	loading process, despite having written the spec at the same time.
+
+2021-10-06  Felipe Borges  <felipeborges@gnome.org>
+
+	tree, media: Soup.Session.send_async now takes an IO priority argument
+	See https://libsoup.org/libsoup-3.0/SoupSession.html#soup-session-send-async
+
+	tree, media: SoupMessage is a private struct in libsoup3
+	You can no longer directly access various structs such as SoupMessage.
+	These are now accessed by getters and setters.
+
+	See https://libsoup.org/libsoup-3.0/ch02.html
+
+	tree, media: SOUP_SESSION_USER_AGENT isn't defined in libosup3
+	Let's use the literal "user-agent" instead.
+
+	build: Require libsoup3
+	See https://blog.tingping.se/2021/02/23/future-of-libsoup.html
+
+	This will fallback to libsoup-2.4 when libsoup3 isn't available.
+
+2021-09-27  Daniel P. Berrangé  <berrange@redhat.com>
+
+	build: don't set glib version constraints for g-ir-scanner
+	add_project_arguments() sets flags that apply to all invokations of the C
+	compiler toolchain by meson. On the surface it sounds fine to use this
+	for setting
+
+	  -DGLIB_VERSION_MIN_REQUIRED=VER
+	  -DGLIB_VERSION_MAX_ALLOWED=VER
+
+	as we want all our code to be constrained by these declared glib
+	versions to prevent us accidentally using APIS from newer glib by
+	mistake.
+
+	A subtle problem was revealed with the arrival of gobject-introspection
+	version 1.70.  The g-ir-scanner program auto-generates some glib code
+	for handling introspection, and this generated code uses glib APIs that
+	are newer than our declared version and this triggers compile failures
+
+	tmp-introspectg6xadxkr/Libosinfo-1.0.c:251:3: error: ‘G_TYPE_FLAG_FINAL’ is deprecated: Not available before 2.70 [-Werror=deprecated-declarations]
+	  251 |   if (G_TYPE_IS_FINAL (type))
+	      |   ^~
+	In file included from /usr/include/glib-2.0/gobject/gobject.h:24,
+	                 from /usr/include/glib-2.0/gobject/gbinding.h:29,
+	                 from /usr/include/glib-2.0/glib-object.h:22,
+	                 from tmp-introspectg6xadxkr/Libosinfo-1.0.c:30:
+	/usr/include/glib-2.0/gobject/gtype.h:1050:3: note: declared here
+	 1050 |   G_TYPE_FLAG_FINAL GLIB_AVAILABLE_ENUMERATOR_IN_2_70 = (1 << 6)
+	      |   ^~~~~~~~~~~~~~~~~
+	tmp-introspectg6xadxkr/Libosinfo-1.0.c:251:13: error: Not available before 2.70 [-Werror]
+	  251 |   if (G_TYPE_IS_FINAL (type))
+	      |             ^~~~~~~~~~~~~~~~~
+
+	This is actually harmless, because systems with an older glib will also
+	have older g-ir-scanner and thus not be using these new APIs.
+
+	We need to exclude the glib version constraints from code generated by
+	glib tools, and thus means we have to stop using add_project_arguments()
+	and set cflags explicitly on each target.
+
+2021-09-06  Rafael Fontenelle  <rafaelff@gnome.org>
+
+	Translated using Weblate (Portuguese (Brazil))
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/pt_BR/
+
+	Co-authored-by: Rafael Fontenelle <rafaelff@gnome.org>
+
+2021-09-06  Jan Kuparinen  <copper_fin@hotmail.com>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 65.4% (112 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Jan Kuparinen <copper_fin@hotmail.com>
+
+2021-09-03  Daniel P. Berrangé  <berrange@redhat.com>
+
+	ci: remove obsolete refresh script and documentation
+	We now use lcitool's manifest feature to generate files.
+
+	ci: re-generate containers/gitlab config from manifest
+	This uses the command "lcitool manifest ci/manifest.yml" to re-generate
+	all existing dockerfiles and gitlab CI config.
+
+	ci: define a CI manifest file
+	This is to be used with the command "lcitool manifest ci/manifest.yml"
+	to re-generate all existing dockerfiles and gitlab CI config.
+
+	In a slight change to the existing config, the manifest will always
+	use the pre-build osinfo-db-tools package. Nothing in the libosinfo
+	CI tasks, has a need to exercise latest git master for osinfo-db-tools.
+	The latter is covered fine by osinfo-db CI jobs.
+
+	gitlab: remove debian-9 build target
+	This platform is no longer supported by libvirt-ci.
+
+	gitlab: remove centos-7 build target
+	This platform is no longer supported by libvirt-ci.
+
+2021-08-25  Hela Basa  <r45xveza@pm.me>
+
+	Translated using Weblate (Sinhala)
+	Currently translated at 0.5% (1 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/si/
+
+	Co-authored-by: Hela Basa <r45xveza@pm.me>
+
+2021-08-25  Andika Triwidada  <andika@gmail.com>
+
+	Translated using Weblate (Indonesian)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/id/
+
+	Co-authored-by: Andika Triwidada <andika@gmail.com>
+
+2021-08-25  Jan Kuparinen  <copper_fin@hotmail.com>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 64.9% (111 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Translated using Weblate (Finnish)
+
+	Currently translated at 33.9% (58 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Jan Kuparinen <copper_fin@hotmail.com>
+
+2021-08-05  simmon  <simmon@nplob.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Co-authored-by: simmon <simmon@nplob.com>
+
+2021-08-05  Oğuz Ersen  <oguzersen@protonmail.com>
+
+	Translated using Weblate (Turkish)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/tr/
+
+	Co-authored-by: Oğuz Ersen <oguzersen@protonmail.com>
+
+2021-08-05  Yuri Chornoivan  <yurchor@ukr.net>
+
+	Translated using Weblate (Ukrainian)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/uk/
+
+	Co-authored-by: Yuri Chornoivan <yurchor@ukr.net>
+
+2021-08-05  Pino Toscano  <toscano.pino@tiscali.it>
+
+	Translated using Weblate (Italian)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/it/
+
+	Co-authored-by: Pino Toscano <toscano.pino@tiscali.it>
+
+2021-08-05  Piotr Drąg  <piotrdrag@gmail.com>
+
+	Translated using Weblate (Polish)
+	Currently translated at 100.0% (171 of 171 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/pl/
+
+	Co-authored-by: Piotr Drąg <piotrdrag@gmail.com>
+
+2021-08-05  Weblate  <noreply@weblate.org>
+
+	Update translation files
+	Updated by "Update PO files to match POT (msgmerge)" hook in Weblate.
+
+	Co-authored-by: Weblate <noreply@weblate.org>
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/
+	Translation: libosinfo/libosinfo
+
+2021-08-05  Jan Kuparinen  <copper_fin@hotmail.com>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 32.3% (55 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Jan Kuparinen <copper_fin@hotmail.com>
+
+2021-08-04  Pino Toscano  <ptoscano@redhat.com>
+
+	po: regenerate libosinfo.pot
+
+2021-07-27  Daniel P. Berrangé  <berrange@redhat.com>
+
+	ci: refresh centos-stream container
+	It is no longer possible to just install an extra package to run regular
+	centos into centos stream.
+
+	gitlab: use custom docker:dind image
+	The current docker:dind container has broken default seccomp filter that
+	results in clone3 being blocked, which in turn breaks Fedora 35 rawhide.
+
+	This custom image has a workaround that causes the seccomp filter to
+	return ENOSYS for clone3 instad of EPERM, thus triggering glibc to
+	fallback to clone correctly.
+
+2021-07-22  Seong-ho Cho  <darkcircle.0426@gmail.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Co-authored-by: Seong-ho Cho <darkcircle.0426@gmail.com>
+
+2021-04-15  simmon  <simmon@nplob.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Co-authored-by: simmon <simmon@nplob.com>
+
+2021-04-13  simmon  <simmon@nplob.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Co-authored-by: simmon <simmon@nplob.com>
+
+2021-04-07  simmon  <simmon@nplob.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Co-authored-by: simmon <simmon@nplob.com>
+
+2021-04-05  simmon  <simmon@nplob.com>
+
+	Translated using Weblate (Korean)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/ko/
+
+	Added translation using Weblate (Korean)
+
+	Co-authored-by: simmon <simmon@nplob.com>
+
+2021-03-07  Hela Basa  <r45xveza@pm.me>
+
+	Added translation using Weblate (Sinhala)
+	Co-authored-by: Hela Basa <r45xveza@pm.me>
+
+2021-03-07  Ricky Tigg  <ricky.tigg@gmail.com>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 25.2% (43 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Translated using Weblate (Finnish)
+
+	Currently translated at 23.5% (40 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Ricky Tigg <ricky.tigg@gmail.com>
+
+2021-03-07  Jan Kuparinen  <copper_fin@hotmail.com>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 19.4% (33 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Jan Kuparinen <copper_fin@hotmail.com>
+
+2021-03-07  Ricky Tigg  <ricky.tigg@gmail.com>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 18.8% (32 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Ricky Tigg <ricky.tigg@gmail.com>
+
+2021-02-24  Fabiano Fidêncio  <fidencio@redhat.com>
+
+	tools: Add "Release status" info to `osinfo-query os`
+	Release status has never been part of `osinfo-query os`, but it's been
+	proven to be a needed information, mainly because the rolling distro may
+	not even have their release & eol date filled up.
+
+	Related: https://bugzilla.redhat.com/show_bug.cgi?id=1932258
+
+2021-02-10  Fabiano Fidêncio  <fidencio@redhat.com>
+
+	Post release version bump to 1.10.0
+
+2021-02-02  Fabiano Fidêncio  <fidencio@redhat.com>
+
+	Update NEWS for 1.9.0 release
+
+2021-01-11  Jan Kuparinen  <copper_fin@hotmail.com>
+
+	Translated using Weblate (Finnish)
+	Currently translated at 15.8% (27 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fi/
+
+	Co-authored-by: Jan Kuparinen <copper_fin@hotmail.com>
+
+2021-01-11  Weblate  <noreply@weblate.org>
+
+	Update translation files
+	Updated by "Update PO files to match POT (msgmerge)" hook in Weblate.
+
+	Co-authored-by: Weblate <noreply@weblate.org>
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/
+	Translation: libosinfo/libosinfo
+
+2021-01-08  Timm Bäder  <tbaeder@redhat.com>
+
+	install config: Rename a parameter
+	'timezone' is a global variable in time.h, so clang complains about
+	that.
+
+	build: Move bsd/mac checks to be compiler-specific
+	They depend on the compiler in use, not the operating system
+
+2020-12-15  Fabian Affolter  <mail@fabian-affolter.ch>
+
+	Translated using Weblate (German)
+	Currently translated at 64.7% (110 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/de/
+
+	Co-authored-by: Fabian Affolter <mail@fabian-affolter.ch>
+
+2020-12-15  Daniel P. Berrangé  <berrange@redhat.com>
+
+	ci: refresh containers for CentOS-8 PowerTools repo rename
+	A recent CentOS-8 update renamed the "PowerTools" repo to "powertools"
+	and since dnf is case sensitive wrt repo names, this broke ability to
+	build new containers.
+
+	The refresh fixes the repo name and pulls in other misc improvements
+	to containers.
+
+2020-12-01  Daniel P. Berrangé  <berrange@redhat.com>
+
+	gitlab: update refresh script for changed host naming convention
+
+	gitlab: refresh containers with lcitool for fully minimized base
+
+	gitlab: re-generate container images from lcitool
+	This introduces Fedora 33 and removes some redundant packages.
+
+	Note that rpm build is marked as skip on CentOS 8/Stream now, since
+	we're using pip provide meson instead of distro meson, and thus don't
+	have the %meson macro.
+
+2020-11-13  Cole Robinson  <crobinso@redhat.com>
+
+	loader: Print filename in libxml error string
+	This is how libvirt handles it. Would help debugging apparently
+	random failures like these bugs:
+
+	https://bugzilla.redhat.com/show_bug.cgi?id=1897356
+	https://bugzilla.redhat.com/show_bug.cgi?id=1651550
+
+2020-09-15  Milo Casagrande  <milo@milo.name>
+
+	Translated using Weblate (Italian)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/it/
+
+	Co-authored-by: Milo Casagrande <milo@milo.name>
+
+2020-09-14  Milo Casagrande  <milo@milo.name>
+
+	Translated using Weblate (Italian)
+	Currently translated at 97.0% (165 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/it/
+
+	Co-authored-by: Milo Casagrande <milo@milo.name>
+
+2020-09-14  Pino Toscano  <toscano.pino@tiscali.it>
+
+	Translated using Weblate (Italian)
+	Currently translated at 97.0% (165 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/it/
+
+	Co-authored-by: Pino Toscano <toscano.pino@tiscali.it>
+
+2020-09-14  Fabio Tomat  <f.t.public@gmail.com>
+
+	Translated using Weblate (Friulian)
+	Currently translated at 66.4% (113 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fur/
+
+	Translated using Weblate (Spanish)
+
+	Currently translated at 12.9% (22 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/es/
+
+	Added translation using Weblate (Friulian)
+
+	Co-authored-by: Fabio Tomat <f.t.public@gmail.com>
+
+2020-09-14  Alexey Shabalin  <a.shabalin@gmail.com>
+
+	Added translation using Weblate (Russian)
+	Co-authored-by: Alexey Shabalin <a.shabalin@gmail.com>
+
+2020-09-14  Mikel Olasagasti  <mikel@olasagasti.info>
+
+	Added translation using Weblate (Basque)
+	Co-authored-by: Mikel Olasagasti <mikel@olasagasti.info>
+
+2020-08-15  Emilio Herrera  <ehespinosa57@gmail.com>
+
+	Translated using Weblate (Spanish)
+	Currently translated at 12.9% (22 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/es/
+
+2020-08-08  Rafael Fontenelle  <rafaelff@gnome.org>
+
+	Translated using Weblate (Portuguese (Brazil))
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/pt_BR/
+
+2020-08-08  Kukuh Syafaat  <kukuh@syafaat.id>
+
+	Translated using Weblate (Indonesian)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/id/
+
+2020-07-31  Julien Humbert  <julroy67@gmail.com>
+
+	Translated using Weblate (French)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fr/
+
+2020-07-29  Oğuz Ersen  <oguzersen@protonmail.com>
+
+	Translated using Weblate (Turkish)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/tr/
+
+2020-07-29  Yuri Chornoivan  <yurchor@ukr.net>
+
+	Translated using Weblate (Ukrainian)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/uk/
+
+2020-07-28  Piotr Drąg  <piotrdrag@gmail.com>
+
+	Translated using Weblate (Polish)
+	Currently translated at 100.0% (170 of 170 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/pl/
+
+2020-07-28  Weblate  <noreply@weblate.org>
+
+	Update translation files
+	Updated by "Update PO files to match POT (msgmerge)" hook in Weblate.
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/
+
+2020-07-28  Pino Toscano  <ptoscano@redhat.com>
+
+	po: regenerate libosinfo.pot
+
+2020-07-28  Rafael Fontenelle  <rafaelff@gnome.org>
+
+	Fix misspellings
+
+2020-07-28  Pino Toscano  <ptoscano@redhat.com>
+
+	tools,detect: improve command line option help
+	Literal identifiers, such as 'media', 'tree', etc in translatable
+	strings are a bad idea, since they will likely be translated, misguiding
+	users reading the help of a translated version.
+
+	Refactor a bit the way these bits are show to the user:
+	- in the help of --format and --type, show a generic name of the
+	  argument value, and slightly improve the description text
+	- add a small description text after the listing of the command line
+	  options to mention the allowed values
+
+	Fixes: #42
+
+2020-07-28  Weblate  <noreply@weblate.org>
+
+	Update translation files
+	Updated by "Update PO files to match POT (msgmerge)" hook in Weblate.
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/
+
+2020-07-28  Rafael Fontenelle  <rafaelff@gnome.org>
+
+	Translated using Weblate (Portuguese (Brazil))
+	Currently translated at 100.0% (169 of 169 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/pt_BR/
+
+
+	Translated using Weblate (Portuguese (Brazil))
+
+	Currently translated at 97.6% (165 of 169 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/pt_BR/
+
+2020-07-28  Fabiano Fidêncio  <fidencio@redhat.com>
+
+	spec: Explicitly call %meson_build in the %build section
+	It was never needed before as the %meson_install macro would perform a
+	project rebuild. However, most recent versions of meson have changed the
+	%meson_install macro to use `--no-rebuild`, exposing then this issue on
+	our spec file.
+
+	Fixes: #43
+
+2020-06-22  Julien Humbert  <julroy67@gmail.com>
+
+	Translated using Weblate (French)
+	Currently translated at 100.0% (169 of 169 strings)
+
+	Translation: libosinfo/libosinfo
+	Translate-URL: https://translate.fedoraproject.org/projects/libosinfo/libosinfo/fr/
+
+2020-06-17  Andrea Bolognani  <abologna@redhat.com>
+
+	ci: Don't use RPM=skip for container builds
+	It only makes sense for actual build jobs.
+
+	ci: Check for rpmbuild availability
+	Only try to build RPMs if the rpmbuild command is present on the
+	system. This means we no longer have to use the RPM=skip trick on
+	Debian-based targets, and can limit it to cases where building
+	RPMs is actually broken for some reason.
+
+	ci: Simplify rpmbuild command
+	We don't have to worry about cleaning up after ourselves, since
+	we're running the build inside an ephemeral container.
+
+	ci: Add CentOS Stream
+	Starting with
+
+	  commit d35a7dba9cc8ac3bb0647171628731c625d4e14f
+	  Author: Erik Skultety <eskultet@redhat.com>
+	  Date:   Thu Jun 4 16:17:36 2020 +0200
+
+	    guests: Add CentOS Stream
+
+	    The idea behind Stream is to get a preview of what the next RHEL-minor
+	    will look like, thus getting newer versions of packages than regular
+	    CentOS provides. It's supposed to be rolling, so currently it's based on
+	    CentOS 8, but once RHEL-9 is out, it will point to the next RHEL-9
+	    instead.  However, unlike debian-sid it doesn't have a dedicated URL
+	    resource (something like centos-stream), so we'll have to change it
+	    manually once it's flipped to point to next RHEL-9.
+
+	    Signed-off-by: Erik Skultety <eskultet@redhat.com>
+
+	lcitool supports CentOS Stream as a build target.
+
+	ci: Use $MESON_OPTS
+	This information is part of the container image now.
+
+	ci: Refresh Dockerfiles
+	Starting with
+
+	  commit 25c9da0aaa94fbca674dca6dec65f6348f335e7d
+	  Author: Andrea Bolognani <abologna@redhat.com>
+	  Date:   Fri May 22 17:38:10 2020 +0200
+
+	    lcitool: Generate MESON_OPTS in Dockerfiles
+
+	    This serves the same purpose as CONFIGURE_OPTS: enable seamless
+	    cross-compilation support, in this case for Meson-based projects.
+
+	    Only MinGW cross-compilation targets are currently supported.
+
+	    Signed-off-by: Andrea Bolognani <abologna@redhat.com>
+
+	lcitool will include a $MESON_OPTS environment variable, which can
+	be used to simplify our GitLab CI build rules, in the Dockerfiles
+	it generates.
+
+	ci: Move Dockerfiles to a subdir
+	This is consistent to how libvirt organizes its files, and ensures
+	things will remain tidy even as we introduce new features such as,
+	later on, Cirrus CI support.
+
+	ci: Clean up refresh script a bit
+	Remove some repetition through refactoring.
+
+2020-06-02  Fabiano Fidêncio  <fidencio@redhat.com>
+
+	Post release version bump to 1.9.0
+
 2020-05-29  Fabiano Fidêncio  <fidencio@redhat.com>
 
 	Update NEWS for 1.8.0 release

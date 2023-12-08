@@ -1,6 +1,6 @@
 project(
     'libosinfo', 'c',
-    version: '1.8.0',
+    version: '1.11.0',
     license: 'LGPLv2+',
     meson_version: '>= 0.49.0',
     default_options: [
@@ -49,14 +49,11 @@ libosinfo_pkgconfdir = join_paths(libosinfo_libdir, 'pkgconfig')
 libosinfo_spec_data = configuration_data()
 libosinfo_spec_data.set('VERSION', meson.project_version())
 
-specs = ['libosinfo.spec', 'mingw-libosinfo.spec']
-foreach spec: specs
-    configure_file(
-        input: spec + '.in',
-        output: spec,
-        configuration: libosinfo_spec_data,
-    )
-endforeach
+configure_file(
+    input: 'libosinfo.spec.in',
+    output: 'libosinfo.spec',
+    configuration: libosinfo_spec_data,
+)
 
 # ninja dist helper
 meson.add_dist_script('build-aux/dist.sh', meson.source_root(), meson.build_root())
@@ -71,7 +68,16 @@ gio_dep = dependency('gio-2.0', version: glib_version_info)
 gobject_dep = dependency('gobject-2.0', version: glib_version_info)
 
 #  everything else
-libsoup_dep = dependency('libsoup-2.4')
+
+libsoup_abi = get_option('libsoup-abi')
+libsoup_dep = disabler()
+if ['auto', '3.0'].contains(libsoup_abi)
+  libsoup_dep = dependency('libsoup-3.0', required: libsoup_abi.contains('3.0'))
+endif
+if not libsoup_dep.found()
+#    fallback to libsoup2
+  libsoup_dep = dependency('libsoup-2.4', required: libsoup_abi.contains('2.4'))
+endif
 libxml_dep = dependency('libxml-2.0', version: '>= 2.6.0')
 libxslt_dep = dependency('libxslt', version: '>= 1.0.0')
 
@@ -233,8 +239,10 @@ if host_machine.system() == 'linux'
     libosinfo_check_cflags += ['-fstack-protector-all']
 endif
 
-# Builds os macOS and BSDs will fail without those.
-if host_machine.system() != 'linux'
+compiler = meson.get_compiler('c')
+
+# Builds os clang  will fail without those.
+if compiler.get_id() == 'clang'
     libosinfo_check_cflags += [
         '-Wno-typedef-redefinition',
         '-Wno-missing-field-initializers',
@@ -245,7 +253,6 @@ if run_command('[', '-d', '.git', ']').returncode() == 0
     libosinfo_check_cflags += ['-Werror']
 endif
 
-compiler = meson.get_compiler('c')
 foreach cflag: libosinfo_check_cflags
   if compiler.has_argument(cflag)
     libosinfo_cflags += [cflag]
@@ -330,8 +337,6 @@ if usb_ids_path != ''
     message('Location of usb.ids: "@0@"'.format(usb_ids_path))
 endif
 
-add_project_arguments(libosinfo_cflags, language: 'c')
-
 libosinfo_version = meson.project_version()
 libosinfo_major_version = libosinfo_version.split('.')[0].to_int()
 libosinfo_minor_version = libosinfo_version.split('.')[1].to_int()
@@ -340,7 +345,7 @@ libosinfo_micro_version = libosinfo_version.split('.')[2].to_int()
 libosinfo_interface_age = 0
 libosinfo_binary_age = 1000 * libosinfo_major_version + libosinfo_minor_version
 
-# Mantain versin scheme with libtool
+# Maintain version scheme with libtool
 libosinfo_soversion = 0
 libosinfo_version = '@0@.@1@.@2@'.format(
     libosinfo_soversion,

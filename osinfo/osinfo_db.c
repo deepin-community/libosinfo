@@ -545,24 +545,34 @@ static gint media_volume_compare(gconstpointer a, gconstpointer b)
     }
 }
 
+
+/*
+ * Fill @matched_media with all OsinfoOs in @oss
+ * that match @media.
+ *
+ * If @onlyFirstMatch is TRUE then will return as soon as
+ * one matching media is found
+ *
+ * If @onlyFirstMatch is FALSE then will return matching
+ * media from all OsinfoOs, potentially with multiple media
+ * per OsinfoOs reported.
+ *
+ * @fallback_os will be filled with any OsinfoOs that
+ * can be used as fallbacks matches. It will never contain
+ * any OsinfoOs that had media added to @matched_media.
+ *
+ * If @ret_os is non-NULL it will be filled with the first
+ * matching OsinfoOs.
+ */
 static gboolean compare_media(OsinfoMedia *media,
                               GList *oss,
+                              OsinfoMediaList *matched_media,
+                              gboolean onlyFirstMatch,
                               OsinfoOs **ret_os,
-                              OsinfoMedia **matched,
                               GList **fallback_oss)
 {
     GList *os_iter;
-    const gchar *media_volume;
-    const gchar *media_system;
-    const gchar *media_publisher;
-    const gchar *media_application;
-    gint64 media_vol_size;
-
-    media_volume = osinfo_media_get_volume_id(media);
-    media_system = osinfo_media_get_system_id(media);
-    media_publisher = osinfo_media_get_publisher_id(media);
-    media_application = osinfo_media_get_application_id(media);
-    media_vol_size = osinfo_media_get_volume_size(media);
+    gboolean matched = FALSE;
 
     for (os_iter = oss; os_iter; os_iter = os_iter->next) {
         OsinfoOs *os = OSINFO_OS(os_iter->data);
@@ -570,86 +580,101 @@ static gboolean compare_media(OsinfoMedia *media,
         OsinfoMediaList *media_list = osinfo_os_get_media_list(os);
         GList *medias = osinfo_list_get_elements(OSINFO_LIST(media_list));
         GList *media_iter;
+        gboolean useFallback = TRUE;
+        gboolean haveFallback = FALSE;
 
         medias = g_list_sort(medias, media_volume_compare);
 
         for (media_iter = medias; media_iter; media_iter = media_iter->next) {
             OsinfoMedia *os_media = OSINFO_MEDIA(media_iter->data);
             const gchar *os_arch = osinfo_media_get_architecture(os_media);
-            const gchar *os_volume = osinfo_media_get_volume_id(os_media);
-            const gchar *os_system = osinfo_media_get_system_id(os_media);
-            const gchar *os_publisher = osinfo_media_get_publisher_id(os_media);
-            const gchar *os_application = osinfo_media_get_application_id(os_media);
-            gint64 os_vol_size = osinfo_media_get_volume_size(os_media);
-
-            if (os_volume == NULL &&
-                os_system == NULL &&
-                os_publisher == NULL &&
-                os_application == NULL &&
-                os_vol_size <= 0)
-                continue;
 
             if (fallback_oss != NULL) {
                 if (g_str_equal(os_arch, "all")) {
-                    *fallback_oss = g_list_prepend(*fallback_oss, os);
+                    haveFallback = TRUE;
                     continue;
                 }
 
                 if (release_status == OSINFO_RELEASE_STATUS_ROLLING) {
-                    *fallback_oss = g_list_prepend(*fallback_oss, os);
+                    haveFallback = TRUE;
                     continue;
                 }
             }
 
-            if (os_vol_size <= 0)
-                os_vol_size = media_vol_size;
+            if (osinfo_media_matches(media, os_media)) {
+                if (ret_os && !*ret_os)
+                    *ret_os = os;
 
-            if (match_regex(os_volume, media_volume) &&
-                match_regex(os_application, media_application) &&
-                match_regex(os_system, media_system) &&
-                match_regex(os_publisher, media_publisher) &&
-                os_vol_size == media_vol_size) {
-                *ret_os = os;
-                if (matched != NULL)
-                    *matched = os_media;
-                break;
+                osinfo_list_add(OSINFO_LIST(matched_media), OSINFO_ENTITY(os_media));
+                useFallback = FALSE;
+                matched = TRUE;
+                if (onlyFirstMatch)
+                    break;
             }
         }
 
         g_list_free(medias);
         g_object_unref(media_list);
 
-        if (*ret_os)
-            return TRUE;
+        if (useFallback && haveFallback)
+            *fallback_oss = g_list_prepend(*fallback_oss, os);
+        if (onlyFirstMatch && matched)
+            break;
     }
 
-    return FALSE;
+    return matched;
 }
 
-static OsinfoOs *
+static gboolean
 osinfo_db_guess_os_from_media_internal(OsinfoDb *db,
                                        OsinfoMedia *media,
-                                       OsinfoMedia **matched_media)
+                                       OsinfoMediaList *matched_media,
+                                       gboolean onlyFirstMatch,
+                                       OsinfoOs **matched_os)
 {
-    OsinfoOs *ret = NULL;
     GList *oss = NULL;
     GList *fallback_oss = NULL;
+    gboolean matched = FALSE;
 
-    g_return_val_if_fail(OSINFO_IS_DB(db), NULL);
-    g_return_val_if_fail(media != NULL, NULL);
+    if (matched_os)
+        *matched_os = NULL;
+
+    g_return_val_if_fail(OSINFO_IS_DB(db), FALSE);
+    g_return_val_if_fail(media != NULL, FALSE);
 
     oss = osinfo_list_get_elements(OSINFO_LIST(db->priv->oses));
-    if (compare_media(media, oss, &ret, matched_media, &fallback_oss))
-        goto end;
 
-    compare_media(media, fallback_oss, &ret, matched_media, NULL);
+    /*
+     * If we're looking for the first match only:
+     *
+     *   - Try to get a preferred match
+     *   - If that doesn't work, then try fallback matches
+     *
+     * If we're looking for all matches:
+     *
+     *   - Add all preferred matches first
+     *   - Add remaining fallback matches secon
+     *
+     * This ensures that if the caller requests all matches
+     * but then blindly picks the first match, they will
+     * not accidentally get a fallback match when a preferred
+     * match was available.
+     */
+    if (compare_media(media, oss, matched_media,
+                      onlyFirstMatch, matched_os, &fallback_oss))
+        matched = TRUE;
 
- end:
+    if ((!onlyFirstMatch || !matched) &&
+        compare_media(media, fallback_oss, matched_media,
+                      onlyFirstMatch, matched_os, NULL))
+        matched = TRUE;
+
     g_list_free(oss);
     g_list_free(fallback_oss);
 
-    return ret;
+    return matched;
 }
+
 /**
  * osinfo_db_guess_os_from_media:
  * @db: the database
@@ -666,7 +691,18 @@ OsinfoOs *osinfo_db_guess_os_from_media(OsinfoDb *db,
                                         OsinfoMedia *media,
                                         OsinfoMedia **matched_media)
 {
-    return osinfo_db_guess_os_from_media_internal(db, media, matched_media);
+    g_autoptr(OsinfoMediaList) all_matched_media = osinfo_medialist_new();
+    OsinfoOs *ret;
+
+    if (!osinfo_db_guess_os_from_media_internal(db, media, all_matched_media, TRUE, &ret))
+        return NULL;
+
+    if (matched_media) {
+        OsinfoEntity *ent = osinfo_list_get_nth(OSINFO_LIST(all_matched_media), 0);
+        *matched_media = OSINFO_MEDIA(ent);
+    }
+
+    return ret;
 }
 
 static void fill_media(OsinfoDb *db, OsinfoMedia *media,
@@ -744,6 +780,7 @@ static void fill_media(OsinfoDb *db, OsinfoMedia *media,
             osinfo_media_add_install_script(media, script);
         }
     }
+    g_clear_object(&install_script_list);
 
     if (os != NULL)
         osinfo_media_set_os(media, os);
@@ -761,124 +798,185 @@ static void fill_media(OsinfoDb *db, OsinfoMedia *media,
  * the media could be identified, its OsinfoEntify::id and OsinfoMedia::os
  * properties will be set.
  *
+ * The match for @media in @db is not guaranteed to be unique and
+ * this method will only return the first match found. The order
+ * in which matches are identified is not guaranteed, so when there
+ * are multiple matches, the returned match may vary over time.
+ * Applications are recommended to use the #osinfo_db_identify_all_media
+ * method instead to receive all matched media.
+ *
  * Returns: TRUE if @media was found in @db, FALSE otherwise
  *
  * Since: 0.2.3
  */
 gboolean osinfo_db_identify_media(OsinfoDb *db, OsinfoMedia *media)
 {
-    OsinfoMedia *matched_media;
+    g_autoptr(OsinfoMediaList) all_matched_media = osinfo_medialist_new();
     OsinfoOs *matched_os;
+    OsinfoEntity *ent;
 
     g_return_val_if_fail(OSINFO_IS_MEDIA(media), FALSE);
     g_return_val_if_fail(OSINFO_IS_DB(db), FALSE);
 
-    matched_os = osinfo_db_guess_os_from_media_internal(db, media,
-                                                        &matched_media);
-    if (matched_os == NULL) {
+    if (!osinfo_db_guess_os_from_media_internal(db, media, all_matched_media,
+                                                TRUE, &matched_os)) {
         return FALSE;
     }
 
-    fill_media(db, media, matched_media, matched_os);
+    ent = osinfo_list_get_nth(OSINFO_LIST(all_matched_media), 0);
+    fill_media(db, media, OSINFO_MEDIA(ent), matched_os);
 
     return TRUE;
 }
 
+/**
+ * osinfo_db_identify_medialist:
+ * @db: an #OsinfoDb database
+ * @media: the installation media data
+ *
+ * Try to match a newly created @media with a media description from @db.
+ * The return list will contain any #OsinfoMedia instances from @db that
+ * matched @media. Usuaully there will only be one match returned, but
+ * applications should be prepared to deal with multiple matches. The
+ * returned #OsinfoMedia instances will have their OsinfoEntify::id and
+ * OsinfoMedia::os properties will be set, while @media is left unmodified.
+ *
+ * Returns: (transfer full): a list containing any matches for @media found in @db
+ *
+ * Since: 1.10.0
+ */
+OsinfoMediaList *osinfo_db_identify_medialist(OsinfoDb *db, OsinfoMedia *media)
+{
+    OsinfoMediaList *matched_media = osinfo_medialist_new();
+
+    g_return_val_if_fail(OSINFO_IS_MEDIA(media), FALSE);
+    g_return_val_if_fail(OSINFO_IS_DB(db), FALSE);
+
+    osinfo_db_guess_os_from_media_internal(db, media, matched_media,
+                                           FALSE, NULL);
+
+    return matched_media;
+}
+
+/*
+ * Fill @matched_tree with all OsinfoOs in @oss
+ * that match @tree.
+ *
+ * If @onlyFirstMatch is TRUE then will return as soon as
+ * one matching tree is found
+ *
+ * If @onlyFirstMatch is FALSE then will return matching
+ * trees from all OsinfoOs, potentially with multiple trees
+ * per OsinfoOs reported.
+ *
+ * @fallback_os will be filled with any OsinfoOs that
+ * can be used as fallbacks matches. It will never contain
+ * any OsinfoOs that had tree added to @matched_tree.
+ *
+ * If @ret_os is non-NULL it will be filled with the first
+ * matching OsinfoOs.
+ */
 static gboolean compare_tree(OsinfoTree *tree,
                              GList *oss,
+                             OsinfoTreeList *matched_tree,
+                             gboolean onlyFirstMatch,
                              OsinfoOs **ret_os,
-                             OsinfoTree **matched,
                              GList **fallback_oss)
 {
     GList *os_iter;
-    const gchar *treeinfo_family;
-    const gchar *treeinfo_variant;
-    const gchar *treeinfo_version;
-    const gchar *treeinfo_arch;
-
-    treeinfo_family = osinfo_tree_get_treeinfo_family(tree);
-    treeinfo_variant = osinfo_tree_get_treeinfo_variant(tree);
-    treeinfo_version = osinfo_tree_get_treeinfo_version(tree);
-    treeinfo_arch = osinfo_tree_get_treeinfo_arch(tree);
+    gboolean matched = FALSE;
 
     for (os_iter = oss; os_iter; os_iter = os_iter->next) {
         OsinfoOs *os = OSINFO_OS(os_iter->data);
         OsinfoTreeList *tree_list = osinfo_os_get_tree_list(os);
         GList *trees = osinfo_list_get_elements(OSINFO_LIST(tree_list));
         GList *tree_iter;
-        gboolean found = FALSE;
+        gboolean useFallback = TRUE;
+        gboolean haveFallback = FALSE;
 
         for (tree_iter = trees; tree_iter; tree_iter = tree_iter->next) {
             OsinfoTree *os_tree = OSINFO_TREE(tree_iter->data);
             const gchar *os_tree_arch = NULL;
-            const gchar *os_treeinfo_family;
-            const gchar *os_treeinfo_variant;
-            const gchar *os_treeinfo_version;
-            const gchar *os_treeinfo_arch;
-
-            if (!osinfo_tree_has_treeinfo(os_tree))
-                continue;
 
             os_tree_arch = osinfo_tree_get_architecture(os_tree);
             if (fallback_oss != NULL) {
                 if (g_str_equal(os_tree_arch, "all")) {
-                    *fallback_oss = g_list_prepend(*fallback_oss, os);
+                    haveFallback = TRUE;
                     continue;
                 }
             }
 
-            os_treeinfo_family = osinfo_tree_get_treeinfo_family(os_tree);
-            os_treeinfo_variant = osinfo_tree_get_treeinfo_variant(os_tree);
-            os_treeinfo_version = osinfo_tree_get_treeinfo_version(os_tree);
-            os_treeinfo_arch = osinfo_tree_get_treeinfo_arch(os_tree);
-
-            if (match_regex(os_treeinfo_family, treeinfo_family) &&
-                match_regex(os_treeinfo_variant, treeinfo_variant) &&
-                match_regex(os_treeinfo_version, treeinfo_version) &&
-                match_regex(os_treeinfo_arch, treeinfo_arch)) {
-                *ret_os = os;
-                if (matched != NULL) {
-                    *matched = os_tree;
-                    osinfo_tree_set_os(*matched, *ret_os);
-                    found = TRUE;
-                }
-                break;
+            if (osinfo_tree_matches(tree, os_tree)) {
+                if (ret_os && !*ret_os)
+                    *ret_os = os;
+                osinfo_list_add(OSINFO_LIST(matched_tree), OSINFO_ENTITY(os_tree));
+                useFallback = FALSE;
+                matched = TRUE;
+                if (onlyFirstMatch)
+                    break;
             }
         }
 
         g_list_free(trees);
         g_object_unref(tree_list);
 
-        if (found)
-            return TRUE;
+        if (useFallback && haveFallback)
+            *fallback_oss = g_list_prepend(*fallback_oss, os);
+        if (onlyFirstMatch && matched)
+            break;
     }
 
-    return FALSE;
+    return matched;
 }
 
-static OsinfoOs *
+static gboolean
 osinfo_db_guess_os_from_tree_internal(OsinfoDb *db,
                                       OsinfoTree *tree,
-                                      OsinfoTree **matched_tree)
+                                      OsinfoTreeList *matched_tree,
+                                      gboolean onlyFirstMatch,
+                                      OsinfoOs **matched_os)
 {
-    OsinfoOs *ret = NULL;
     GList *oss = NULL;
     GList *fallback_oss = NULL;
+    gboolean matched = FALSE;
 
-    g_return_val_if_fail(OSINFO_IS_DB(db), NULL);
-    g_return_val_if_fail(tree != NULL, NULL);
+    if (matched_os)
+        *matched_os = NULL;
 
+    g_return_val_if_fail(OSINFO_IS_DB(db), FALSE);
+    g_return_val_if_fail(tree != NULL, FALSE);
+
+
+    /*
+     * If we're looking for the first match only:
+     *
+     *   - Try to get a preferred match
+     *   - If that doesn't work, then try fallback matches
+     *
+     * If we're looking for all matches:
+     *
+     *   - Add all preferred matches first
+     *   - Add remaining fallback matches secon
+     *
+     * This ensures that if the caller requests all matches
+     * but then blindly picks the first match, they will
+     * not accidentally get a fallback match when a preferred
+     * match was available.
+     */
     oss = osinfo_list_get_elements(OSINFO_LIST(db->priv->oses));
-    if (compare_tree(tree, oss, &ret, matched_tree, &fallback_oss))
-        goto end;
+    if (compare_tree(tree, oss, matched_tree,
+                     onlyFirstMatch, matched_os, &fallback_oss))
+        matched = TRUE;
 
-    compare_tree(tree, fallback_oss, &ret, matched_tree, NULL);
+    if ((!onlyFirstMatch || !matched) &&
+        compare_tree(tree, fallback_oss, matched_tree,
+                     onlyFirstMatch, matched_os, NULL))
+        matched = TRUE;
 
- end:
     g_list_free(oss);
     g_list_free(fallback_oss);
 
-    return ret;
+    return matched;
 }
 
 /**
@@ -897,7 +995,13 @@ OsinfoOs *osinfo_db_guess_os_from_tree(OsinfoDb *db,
                                        OsinfoTree *tree,
                                        OsinfoTree **matched_tree)
 {
-    return osinfo_db_guess_os_from_tree_internal(db, tree, matched_tree);
+    g_autoptr(OsinfoTreeList) all_matched_tree = osinfo_treelist_new();
+    OsinfoOs *ret;
+
+    if (!osinfo_db_guess_os_from_tree_internal(db, tree, all_matched_tree, TRUE, &ret))
+        return NULL;
+
+    return ret;
 }
 
 static void fill_tree(OsinfoDb *db, OsinfoTree *tree,
@@ -983,6 +1087,13 @@ static void fill_tree(OsinfoDb *db, OsinfoTree *tree,
  * the tree could be identified, its OsinfoEntify::id and OsinfoMedia::os
  * properties will be set.
  *
+ * The match for @tree in @db is not guaranteed to be unique and
+ * this method will only return the first match found. The order
+ * in which matches are identified is not guaranteed, so when there
+ * are multiple matches, the returned match may vary over time.
+ * Applications are recommended to use the #osinfo_db_identify_all_tree
+ * method instead to receive all matched tree.
+ *
  * Returns: TRUE if @tree was found in @db, FALSE otherwise
  *
  * Since: 1.6.0
@@ -990,21 +1101,51 @@ static void fill_tree(OsinfoDb *db, OsinfoTree *tree,
 gboolean osinfo_db_identify_tree(OsinfoDb *db,
                                  OsinfoTree *tree)
 {
-    OsinfoTree *matched_tree;
+    g_autoptr(OsinfoTreeList) all_matched_tree = osinfo_treelist_new();
     OsinfoOs *matched_os;
+    OsinfoEntity *ent;
 
     g_return_val_if_fail(OSINFO_IS_TREE(tree), FALSE);
     g_return_val_if_fail(OSINFO_IS_DB(db), FALSE);
 
-    matched_os = osinfo_db_guess_os_from_tree_internal(db, tree,
-                                                       &matched_tree);
-    if (matched_os == NULL) {
+    if (!osinfo_db_guess_os_from_tree_internal(db, tree, all_matched_tree,
+                                               TRUE, &matched_os)) {
         return FALSE;
     }
 
-    fill_tree(db, tree, matched_tree, matched_os);
+    ent = osinfo_list_get_nth(OSINFO_LIST(all_matched_tree), 0);
+    fill_tree(db, tree, OSINFO_TREE(ent), matched_os);
 
     return TRUE;
+}
+
+/**
+ * osinfo_db_identify_treelist:
+ * @db: an #OsinfoDb database
+ * @tree: the installation tree data
+ *
+ * Try to match a newly created @tree with a tree description from @db.
+ * The return list will contain any #OsinfoTree instances from @db that
+ * matched @tree. Usuaully there will only be one match returned, but
+ * applications should be prepared to deal with multiple matches. The
+ * returned #OsinfoTree instances will have their OsinfoEntify::id and
+ * OsinfoTree::os properties will be set, while @tree is left unmodified.
+ *
+ * Returns: (transfer full): a list containing any matches for @tree found in @db
+ *
+ * Since: 1.10.0
+ */
+OsinfoTreeList *osinfo_db_identify_treelist(OsinfoDb *db, OsinfoTree *tree)
+{
+    OsinfoTreeList *matched_tree = osinfo_treelist_new();
+
+    g_return_val_if_fail(OSINFO_IS_TREE(tree), FALSE);
+    g_return_val_if_fail(OSINFO_IS_DB(db), FALSE);
+
+    osinfo_db_guess_os_from_tree_internal(db, tree, matched_tree,
+                                          FALSE, NULL);
+
+    return matched_tree;
 }
 
 struct osinfo_db_populate_values_args {
@@ -1038,7 +1179,7 @@ static void osinfo_db_get_property_values_in_entity(gpointer data, gpointer opaq
 
 static GList *osinfo_db_unique_values_for_property_in_entity(OsinfoList *entities, const gchar *propName)
 {
-    /* Delibrately no free func for key, since we return those to caller */
+    /* Deliberately no free func for key, since we return those to caller */
     GHashTable *values = g_hash_table_new(g_str_hash, g_str_equal);
     GList *ret;
     struct osinfo_db_populate_values_args args = { values, propName };
