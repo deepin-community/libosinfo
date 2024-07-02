@@ -1,3 +1,12 @@
+libosinfo (1.11.0-2) unstable; urgency=medium
+
+  * Disable style tests by passing --no-suite style to meson test.
+    Drop the patch Skip-syntax-check.patch, no more needed now.
+  * Simplify symbols file using symver
+  * d/control: add ${gir:Provides} to the Provides of libosinfo-1.0-dev
+
+ -- Pino Toscano <pino@debian.org>  Tue, 05 Dec 2023 19:54:30 +0100
+
 libosinfo (1.11.0-1) unstable; urgency=medium
 
   [ Pino Toscano ]

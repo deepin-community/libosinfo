@@ -15,3 +15,7 @@ override_dh_auto_configure:
 		-Dwith-usb-ids-path=/usr/share/misc/usb.ids \
 		-Dwith-pci-ids-path=/usr/share/misc/pci.ids \
 		$(NULL)
+
+override_dh_auto_test:
+	# disable the style tests, which are mostly for upstream development
+	dh_auto_test -- --no-suite style
